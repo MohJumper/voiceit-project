@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	>
+<head>
+<meta charset="UTF-8">
+<title>Show all parties</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<!-- link for the style of the table and buttons 
+
+https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add-and-delete-row-feature
+
+<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New Party</button>
+
+ -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+<body>
+	<div class="col-sm-8"><h2><b>Voting Page</b></h2></div>
+		<div class="col-sm-4">
+	    
+	     <a href="/newparty" class="btn btn-info add-new">Add New Party</a>
+    </div>
+	
+	<table border="1" cellpadding="10" class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Party Symbols</th>
+				<th>Party Name</th>
+				<th>Vote Here</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each=" party : ${parties}">
+				<td th:text="${party.id}">Party Symbols</td>
+				<td th:text="${party.name}">Party Name</td>
+				<td th:text="place.holder">Vote Here</td>
+				<td>
+					
+        			<a th:href="@{/edit/{id}(id=${party.id})}"
+        			
+        			class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+        			 &nbsp;&nbsp;&nbsp;
+        			 <a th:href="@{/delete/{id}(id=${party.id})}"
+                    
+                    class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    
+				</td>
+				<!-- 
+				add to each a tage
+				th:href="@{/edit/{id}(id=${part.id})}"
+				
+				<a th:href="@{/delete/{id}(id=${party.id})}"
+                    
+                    class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+				
+				..................................
+				 <a class="btn btn-default" >Edit</a>
+                     &nbsp;&nbsp;&nbsp;
+        			<a class="btn btn-default">Delete</a>
+				
+				 -->
+				
+			</tr>
+		</tbody>
+		
+	</table >
+</body>
+</html>
