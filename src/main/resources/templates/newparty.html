@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>New Party</title>
+</head>
+<body>
+    <div align="center">
+        <h1>Enter New Party</h1>
+        <br />
+          <form action="#" th:action="@{/saveparty}" th:object="${nParty}"
+            method="post">
+
+            <table border="0" cellpadding="10" class="table table-bordered table-striped">
+               
+                <tr>
+                    <td>Party Name:</td>
+                    <td><input type="text" th:field="*{name}" /></td>
+                </tr>                          
+                <tr>
+                    <td colspan="2"><button type="submit">Save</button> </td>
+                </tr>
+            </table>
+        </form>
+        <form action="#" th:action="@{/}">
+            <button type="submit" class="btn btn-default">Back</button>
+            </form>
+     
+    </div>
+</body> 
