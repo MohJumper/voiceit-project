@@ -9,7 +9,7 @@
     <div align="center">
         <h1>Edit Sale</h1>
         <br />
-        <form action="#" th:action="@{/saveparty}" th:object="${currParty}"
+        <form action="#" th:action="@{/edit/{id}(id=${party.id})}" th:object="${party}"
             method="post">
 
             <table border="0" cellpadding="10">

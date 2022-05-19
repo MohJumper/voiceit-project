@@ -15,6 +15,7 @@ import com.voiceit.reposiorty.PartyReposiorty;
 import com.voiceit.reposiorty.RoleReposiorty;
 import com.voiceit.reposiorty.UserRepository;
 import com.voiceit.reposiorty.VoteReposiorty;
+import com.voiceit.service.PartyService;
 
 @Controller
 public class PartyController {
@@ -31,10 +32,14 @@ public class PartyController {
 	@Autowired
 	private RoleReposiorty roleReposiorty;
 	
+	@Autowired
+	private PartyService partyService;
+	
+	
 	@GetMapping("/")
 	public String showWelcomePage(ModelMap model) {
 		
-		List<Party> parties = partyReposiorty.findAll();
+		List<Party> parties = partyService.findAll();
 //		System.out.println(parties);
 		model.put("parties", parties);
 		return "partiesview";
@@ -49,45 +54,48 @@ public class PartyController {
 	
 	@PostMapping("/saveparty")
 	public String savenNewParty(Party party) {
-		partyReposiorty.save(party);
+		partyService.save(party);
 		return "redirect:/";
 	}
 	
 	@GetMapping("/edit/{id}")
 	public String editCurrentParty(ModelMap model, @PathVariable Long id) {
-		Optional<Party> currParty = partyReposiorty.findById(id);
-		model.put("currParty", currParty);
+//		Optional<Party> currParty = partyReposiorty.findById(id);
+		Party party = partyService.findPartyById(id);
+		model.put("party", party);
+//		model.put("currParty", currParty);
 		
 		return "editparty";
 	}
 	
 	@PostMapping("/edit/{id}")
 	public String saveEditedParty(Party party) {
-		Optional<Party> currPartyOpt = partyReposiorty.findById(party.getId());
-//		 if(currPartyOpt.isPresent()) {
-//	        	currPartyOpt.get();
-//	        } else {
-//	        	throw new RuntimeException(" sale not found for id: " + party.getId());
-//	        }
-		if(currPartyOpt.isPresent()) {
-			Party nParty = currPartyOpt.get();
-			nParty.setId(party.getId());
-			nParty.setName(party.getName());
-			
-			partyReposiorty.save(nParty);
-//			 return nparty;
-			
+//		Optional<Party> currPartyOpt = partyReposiorty.findById(party.getId());
+////		 if(currPartyOpt.isPresent()) {
+////	        	currPartyOpt.get();
+////	        } else {
+////	        	throw new RuntimeException(" party not found for id >>>>>>> : " + party.getId());
+////	        }
+//		if(currPartyOpt.isPresent()) {
+//			Party nParty = currPartyOpt.get();
+//			nParty.setId(party.getId());
+//			nParty.setName(party.getName());
+//			
+//			partyReposiorty.save(nParty);
+////			 return nparty;
+//			
 //		} else {
 //			partyReposiorty.save(party);
-			// return party;
-		}
+//			// return party;
+//		}
+		partyService.updateParty(party);
 		return "redirect:/";
 	}
 	
 	
 	@GetMapping("/delete/{id}")
 	public String deleteParty(@PathVariable Long id) {
-		this.partyReposiorty.deleteById(id);
+		this.partyService.deleteById(id);
 		return "redirect:/";
 	}
 }
