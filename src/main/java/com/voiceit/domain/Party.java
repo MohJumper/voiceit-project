@@ -20,10 +20,21 @@ public class Party {
 	@Column(name = "party_name")
 	private String name;
 	
+	private int voteCount;
+	
+	
 	// do more research on how to add images
 //	@Lob
 //    @Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)
 //    private byte[] image;
+
+	public int getVoteCount() {
+		return voteCount;
+	}
+
+	public void setVoteCount(int voteCount) {
+		this.voteCount = voteCount;
+	}
 
 	@Override
 	public String toString() {

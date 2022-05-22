@@ -57,6 +57,16 @@ public class PartyService {
 		partyReposiorty.deleteById(id);
 		
 	}
+
+	public void vote(Long id) {
+		Optional<Party> currParty = partyReposiorty.findById(id);
+		if(currParty.isPresent()) {
+			Party nParty = currParty.get();
+			nParty.setVoteCount(nParty.getVoteCount() +1);
+			updateParty(nParty);
+		}
+		
+	}
 	
 	
 

@@ -11,6 +11,14 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
 
 <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New Party</button>
 
+	---------------------
+	vote here 
+	<a th:href="@{/vote/{id}(id=${party.id})}"
+	        			class="edit vote" title="vote" data-toggle="tooltip">Vote Here</a>
+
+	<input id="voted" type="submit" value="Vote Here" />
+	
+	 <button id="voted" th:onclick="checkIfClicked()" >Vote Here</button>
  -->
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -37,7 +45,15 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
 			<tr th:each=" party : ${parties}">
 				<td th:text="${party.id}">Party Symbols</td>
 				<td th:text="${party.name}">Party Name</td>
-				<td th:text="place.holder">Vote Here</td>
+				<td>
+					
+	        		<form th:action="@{/vote/{id}(id=${party.id})}" method="get">
+		   					 
+		   					 <button id="voted" th:disabled="${voted}">Vote Here</button>
+
+		   					 
+					</form>
+				</td>
 				<td>
 					
         			<a th:href="@{/edit/{id}(id=${party.id})}"
@@ -68,5 +84,37 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
 		</tbody>
 		
 	</table >
+	<script type="text/javascript" 
+		
+	>
+	function setCookie(name, value, days) {
+	    if (days) {
+	        var date = new Date();
+	        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+	        var expires = "; expires=" + date.toGMTString();
+	    }
+	    else var expires = "";
+	    document.cookie = name + "=" + value + expires + "; path=/";
+	}
+
+	function getCookie(name) {
+	    var nameEQ = name + "=";
+	    var ca = document.cookie.split(';');
+	    for (var i = 0; i < ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+	        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+	    }
+	    return null;
+	}
+
+	$('#voted').click(function(){
+	    $(this).attr('disabled',true);
+	    setCookie('DisableBtn', true, null);
+	});
+	if(getCookie('DisableBtn'))
+	    $('#clic').attr('disabled',true);
+
+	</script>
 </body>
 </html>

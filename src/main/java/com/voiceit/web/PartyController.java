@@ -1,11 +1,16 @@
 package com.voiceit.web;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,7 +77,24 @@ public class PartyController {
 	
 	@GetMapping("/delete/{id}")
 	public String deleteParty(@PathVariable Long id) {
-		this.partyService.deleteById(id);
+		partyService.deleteById(id);
 		return "redirect:/";
+	}
+	
+	@GetMapping("/vote")
+	public String main(Map<String, Object> model, @CookieValue(name = "voted", defaultValue = "false") String voted) {
+	  model.put("voted", Boolean.parseBoolean(voted));
+	  return "vote";
+	}
+
+	@GetMapping("/vote/{id}")
+	public String vote(HttpServletResponse response, @CookieValue(name = "voted", defaultValue = "false") String voted, @PathVariable Long id) {
+	  if (!Boolean.parseBoolean(voted)) {
+	    partyService.vote(id);
+	    Cookie cookie = new Cookie("voted", "true");
+	    response.addCookie(cookie);
+	  }
+
+	  return "redirect:/";
 	}
 }

@@ -35,6 +35,9 @@ public class User {
     
     @Column(name = "created_date")
     private Date createdDate;
+    
+    @Column(name = "voted")
+    private boolean isVoted;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -42,12 +45,22 @@ public class User {
         joinColumns = @JoinColumn(name="user_id"),
         inverseJoinColumns = @JoinColumn(name="role_id")
     )
-
+    
+    
+    
     private Set<Role> roles=new HashSet<>();
 
 
 
-    public Long getId() {
+    public boolean isVoted() {
+		return isVoted;
+	}
+
+	public void setVoted(boolean isVoted) {
+		this.isVoted = isVoted;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
