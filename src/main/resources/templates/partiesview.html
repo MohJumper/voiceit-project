@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
+	 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	>
 <head>
 <meta charset="UTF-8">
@@ -23,12 +24,24 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+<script type="text/javascript" src="partiesview.js"> </script>
 </head>
-<body>
+
+
+<div sec:authorize="isAuthenticated()" class="text-center">
+    <h1>Welcome <b><span  sec:authentication="name"></span>
+    &nbsp;
+    <span sec:authentication="principal.authorities"></span></h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="logout">
+        </form>
+</div>
+
+<body th:attr="onload=\"runLoad('${party.id}')\"">
 	<div class="col-sm-8"><h2><b>Voting Page</b></h2></div>
-		<div class="col-sm-4">
+		<div sec:authorize="hasAuthority('admin')" class="col-sm-4">
 	    
-	     <a href="/newparty" class="btn btn-info add-new">Add New Party</a>
+	     <a sec:authorize="hasAuthority('admin')" href="/newparty" class="btn btn-info add-new">Add New Party</a>
     </div>
 	
 	<table border="1" cellpadding="10" class="table table-bordered table-striped">
@@ -37,7 +50,7 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
 				<th>Party Symbols</th>
 				<th>Party Name</th>
 				<th>Vote Here</th>
-				<th>Action</th>
+				<th id="action"  >Action</th>
 			</tr>
 		</thead>
 		
@@ -49,18 +62,22 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
 					
 	        		<form th:action="@{/vote/{id}(id=${party.id})}" method="get">
 		   					 
-		   					 <button id="voted" th:disabled="${voted}">Vote Here</button>
-
+		   					 <button id="voted" th:disabled="${voted}"> Vote Here</button>
+								
 		   					 
 					</form>
 				</td>
-				<td>
+				<td class="actionButtons">
 					
-        			<a th:href="@{/edit/{id}(id=${party.id})}"
+        			<a  sec:authorize="hasAuthority('admin')"
+        			
+        			th:href="@{/edit/{id}(id=${party.id})}"
         			
         			class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
         			 &nbsp;&nbsp;&nbsp;
-        			 <a th:href="@{/delete/{id}(id=${party.id})}"
+        			 <a sec:authorize="hasAuthority('admin')"
+        			 
+        			 th:href="@{/delete/{id}(id=${party.id})}"
                     
                     class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     
@@ -84,37 +101,6 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
 		</tbody>
 		
 	</table >
-	<script type="text/javascript" 
-		
-	>
-	function setCookie(name, value, days) {
-	    if (days) {
-	        var date = new Date();
-	        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-	        var expires = "; expires=" + date.toGMTString();
-	    }
-	    else var expires = "";
-	    document.cookie = name + "=" + value + expires + "; path=/";
-	}
-
-	function getCookie(name) {
-	    var nameEQ = name + "=";
-	    var ca = document.cookie.split(';');
-	    for (var i = 0; i < ca.length; i++) {
-	        var c = ca[i];
-	        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-	        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-	    }
-	    return null;
-	}
-
-	$('#voted').click(function(){
-	    $(this).attr('disabled',true);
-	    setCookie('DisableBtn', true, null);
-	});
-	if(getCookie('DisableBtn'))
-	    $('#clic').attr('disabled',true);
-
-	</script>
+	
 </body>
 </html>

@@ -81,6 +81,9 @@ public class PartyController {
 		return "redirect:/";
 	}
 	
+	/*
+	 * Both method work on storing the cookie status 
+	 */
 	@GetMapping("/vote")
 	public String main(Map<String, Object> model, @CookieValue(name = "voted", defaultValue = "false") String voted) {
 	  model.put("voted", Boolean.parseBoolean(voted));
@@ -97,4 +100,6 @@ public class PartyController {
 
 	  return "redirect:/";
 	}
+	
+	
 }

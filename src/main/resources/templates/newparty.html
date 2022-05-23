@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html
-    xmlns:th="http://www.thymeleaf.org">
+    xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    >
 <head>
 <meta charset="utf-8" />
 <title>New Party</title>
 </head>
 <body>
-    <div align="center">
+    <div sec:authorize="hasAuthority('admin')" align="center">
         <h1>Enter New Party</h1>
         <br />
           <form action="#" th:action="@{/saveparty}" th:object="${nParty}"

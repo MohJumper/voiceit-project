@@ -8,7 +8,7 @@ import com.voiceit.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-//	@Query("select u from User u where u.username= :username")
-//	public User getUserByUsername(@Param("username") String username);
+	@Query("select u from User u where u.username= :username")
+	public User getUserByUsername(@Param("username") String username);
 
 }
