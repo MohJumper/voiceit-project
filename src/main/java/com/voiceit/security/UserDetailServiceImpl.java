@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.voiceit.domain.User;
 import com.voiceit.reposiorty.UserRepository;
-
 
 
 public class UserDetailServiceImpl implements UserDetailsService {
@@ -16,7 +16,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 		@Override
 		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	        com.voiceit.domain.User user= userRepository.getUserByUsername(username);
+			User user= userRepository.getUserByUsername(username);
 	        
 	        if(user==null){
 	            throw new UsernameNotFoundException("username not found");
