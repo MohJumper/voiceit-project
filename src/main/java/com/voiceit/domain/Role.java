@@ -18,8 +18,16 @@ public class Role {
     
     @Column(name = "role_name")
     private String name;
+    
+    public Role() {
+    	
+    }
+    
+    public Role(String roleName) {
+		this.name = roleName;
+	}
 
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 

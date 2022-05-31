@@ -41,16 +41,71 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//      http.authorizeRequests()
+////      .antMatchers("/").permitAll()
+//      // ------- add this for register page
+////      .authorizeRequests()
+//      .antMatchers(
+//          "/register",
+//          "/js/**",
+//          "/css/**",
+//          "/img/**",
+//          "/webjars/**")
+//      
+//      .permitAll()
+////      .anyRequest()
+////      .authenticated()
+//      .and()
+//      .authorizeRequests()
+//    // ----------- end 
+//      .antMatchers("/delete/**").hasAuthority("admin")
+//      .antMatchers("/edit/**").hasAuthority("admin")
+//      .antMatchers("/newparty/**").hasAuthority("admin")
+//      // add ant matcher for create new party
+//      .anyRequest().authenticated()
+//      
+//      .and()
+//      .formLogin()
+//      .loginPage("/login")
+//      .permitAll()
+//      .and().csrf().disable()
+//      .logout().permitAll()
+//      .and()
+//      // TODO implement error here 
+//      .exceptionHandling().accessDeniedPage("/product/error")
+//      ;
+//    }
+    
+    /*
+     * Working on making the registration work
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       http.authorizeRequests()
 //      .antMatchers("/").permitAll()
-    
+      // ------- add this for register page
+//      .authorizeRequests()
+      .antMatchers(
+          "/register",
+          "/js/**",
+          "/css/**",
+          "/img/**",
+          "/webjars/**")
+      
+      .permitAll()
+//      .anyRequest()
+//      .authenticated()
+      .and()
+      .authorizeRequests()
+    // ----------- end 
       .antMatchers("/delete/**").hasAuthority("admin")
       .antMatchers("/edit/**").hasAuthority("admin")
       .antMatchers("/newparty/**").hasAuthority("admin")
       // add ant matcher for create new party
       .anyRequest().authenticated()
+      
       .and()
       .formLogin()
       .loginPage("/login")

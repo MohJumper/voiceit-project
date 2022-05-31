@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.voiceit.domain.Party;
 import com.voiceit.reposiorty.PartyReposiorty;
@@ -39,7 +40,7 @@ public class PartyController {
 	
 	
 	@GetMapping("/")
-	public String showWelcomePage(ModelMap model) {
+	public String showVotingPage(ModelMap model) {
 		
 		List<Party> parties = partyService.findAll();
 //		System.out.println(parties);

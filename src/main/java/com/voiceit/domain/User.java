@@ -16,6 +16,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
+
+
 
 @Entity
 @Table(name = "users")
@@ -26,17 +31,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "username")
+
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
     
-    @Column(name = "created_date")
-    private Date createdDate;
+    @Column(name = "first_name" , nullable = false)
+    private String firstName;
     
-    @Column(name = "voted")
+    @Column(name = "last_name" , nullable = false)
+    private String lastName;
+    
+    
+//    @Column(name = "created_date", nullable = false, updatable = false)
+//    @CreatedDate
+//    private Date createdDate;
+    
+    @Column(name = "voted", columnDefinition="tinyint(0) default 0")
     private boolean isVoted;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -51,8 +65,24 @@ public class User {
     private Set<Role> roles=new HashSet<>();
 
 
+    
+    public String getFirstName() {
+		return firstName;
+	}
 
-    public boolean isVoted() {
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public boolean isVoted() {
 		return isVoted;
 	}
 
@@ -92,13 +122,13 @@ public class User {
         this.email = email;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+//    public Date getCreatedDate() {
+//        return createdDate;
+//    }
+//
+//    public void setCreatedDate(Date createdDate) {
+//        this.createdDate = createdDate;
+//    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -111,7 +141,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", createdDate=" + createdDate + ", roles=" + roles + "]";
+				+ ", createdDate=" + ", roles=" + roles + "]";
 	}
+	
     
 }

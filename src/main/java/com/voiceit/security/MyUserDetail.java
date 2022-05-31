@@ -15,6 +15,7 @@ import com.voiceit.domain.User;
 public class MyUserDetail implements UserDetails {
 	
 	private User user;
+	
 
 	public MyUserDetail(User user){
         this.user=user;
@@ -42,6 +43,7 @@ public class MyUserDetail implements UserDetails {
         // TODO Auto-generated method stub
         return user.getUsername();
     }
+    
 
     @Override
     public boolean isAccountNonExpired() {

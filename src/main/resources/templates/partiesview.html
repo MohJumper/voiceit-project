@@ -29,22 +29,38 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
 
 
 <div sec:authorize="isAuthenticated()" class="text-center">
-    <h1>Welcome <b><span  sec:authentication="name"></span>
+    <h1>
+    
+    <!-- 
+    removed to test different approach 
+    
+    Welcome <b><span  sec:authentication="name"></span>
     &nbsp;
-    <span sec:authentication="principal.authorities"></span></h1>
+    <span sec:authentication="principal.authorities"></span>
+     
+     -->
+    Welcome <b>[[${#request.userPrincipal.principal.username}]]</b>
+    
+    <b><span  sec:authentication="name"></span>
+    &nbsp;
+    <span sec:authentication="principal.authorities"></span>
+    </h1>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="logout">
         </form>
 </div>
-
-<body th:attr="onload=\"runLoad('${party.id}')\"">
+<!-- 
+still working on the disable vote and send message when user voted 
+th:attr="onload=\"runLoad('${party.id}')\""
+ -->
+<body >
 	<div class="col-sm-8"><h2><b>Voting Page</b></h2></div>
 		<div sec:authorize="hasAuthority('admin')" class="col-sm-4">
 	    
 	     <a sec:authorize="hasAuthority('admin')" href="/newparty" class="btn btn-info add-new">Add New Party</a>
     </div>
 	
-	<table border="1" cellpadding="10" class="table table-bordered table-striped">
+	<table border="1" cellpadding="10" class="table table-bordered table-striped" >
 		<thead>
 			<tr>
 				<th>Party Symbols</th>

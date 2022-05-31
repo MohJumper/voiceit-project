@@ -6,4 +6,6 @@ import com.voiceit.domain.Role;
 
 public interface RoleReposiorty extends JpaRepository<Role, Long>{
 
+	Role findByname(String roleName);
+
 }
