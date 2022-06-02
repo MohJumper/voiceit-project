@@ -5,12 +5,16 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.voiceit.domain.Role;
 import com.voiceit.domain.User;
+import com.voiceit.exception.EmailAlreadyExistException;
+import com.voiceit.exception.UsernameAlreadyExisitException;
 import com.voiceit.reposiorty.RoleReposiorty;
 import com.voiceit.reposiorty.UserRepository;
 
@@ -22,6 +26,9 @@ public class UserService {
 	
 //	private RoleReposiorty roleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    @Autowired
+    PasswordEncoder passwordEncoder;
 //
 //    @Autowired
 //    public UserService(UserRepository userRepository,
@@ -44,7 +51,9 @@ public class UserService {
 		return false;
 	}
 
-	// TODO : need to do some checks if the username or email is used
+	/*
+	 * JPA handle sorting the object in Mysql so this method is not needed. But kept here for future reference
+	 */
 	public User saveNewUser(User user) {
 		User nuser = new User();
 		nuser.setUsername(user.getUsername());
@@ -61,21 +70,6 @@ public class UserService {
 		
 	}
 	
-//	public void saveNewUser(User user) {
-//		userRepository.save(user);
-//		
-//		
-//	}
-	
-//	public User saveUser(User user) {
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-////        user.setActive(true);
-//        Role userRole = roleRepository.findByRole("ADMIN");
-//        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-//        return userRepository.save(user);
-//    }
-
-
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	
@@ -84,12 +78,55 @@ public class UserService {
 	  public User findUserByUserName(String userName) {
 	        return userRepository.findByUsername(userName);
 	    }
-
-	public User save(User user) {
-		
-		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
-		return userRepository.save(user);
+	
+	/*
+	 * JPA does handle saving the object so this makes a call to the save method and setting all role to a user as a default
+	 */
+//	public User save(User user) throws EmailAlreadyExistException, UsernameAlreadyExisitException {
+//		if(checkIfUserEmailExist(user.getEmail())) {
+//			throw new EmailAlreadyExistException("This email already exist. Use different email.");
+//		}
+//		if(checkIfUsernameExist(user.getUsername())) {
+//			throw new UsernameAlreadyExisitException("This username already exist. User different username");
+//		}
+//		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
+//		return userRepository.save(user);
+//		
+//	}
+	
+	public void save(UserData userData) throws EmailAlreadyExistException {
+		if(checkIfUserEmailExist(userData.getEmail())) {
+			throw new EmailAlreadyExistException("This email already exist. Use different email.");
+		}
+//		if(checkIfUsernameExist(userData.getUsername())) {
+//			throw new UsernameAlreadyExisitException("This username already exist. User different username");
+//		}
+		User user = new User();
+		BeanUtils.copyProperties(userData, user);
+		encodePassword(user, userData);
+		userData.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
+		userRepository.save(user);
 		
 	}
+	
+//	public User save(User user) throws UserAlreadyExistException {
+//		
+//		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
+//		return userRepository.save(user);
+//		
+//	}
+	
+	// ----------------------------------------------------- helper methods for user validation ------------------------------------------- 
+	
+	 private boolean checkIfUserEmailExist(String email) {
+	        return userRepository.findByEmail(email) !=null ? true : false;
+	    }
+	 private boolean checkIfUsernameExist(String useranme) {
+	        return userRepository.findByUsername(useranme) !=null ? true : false;
+	    }
+	 
+	 private void encodePassword( User user, UserData userData){
+	        user.setPassword(passwordEncoder.encode(user.getPassword()));
+	    }
 
 }

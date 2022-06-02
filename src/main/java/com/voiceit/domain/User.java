@@ -17,7 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 
 
@@ -47,7 +46,7 @@ public class User {
     
     
 //    @Column(name = "created_date", nullable = false, updatable = false)
-//    @CreatedDate
+//    @CreationTimestamp
 //    private Date createdDate;
     
     @Column(name = "voted", columnDefinition="tinyint(0) default 0")
