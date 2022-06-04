@@ -75,39 +75,47 @@ public class UserService {
 	
 	}
 	
-	  public User findUserByUserName(String userName) {
-	        return userRepository.findByUsername(userName);
+	public Optional<User> findById(Long id) {
+		return userRepository.findById(id);
+	}
+	
+	public User findUserByUserName(String userName) {
+		
+	    return userRepository.findByUsername(userName);
 	    }
 	
 	/*
 	 * JPA does handle saving the object so this makes a call to the save method and setting all role to a user as a default
 	 */
-//	public User save(User user) throws EmailAlreadyExistException, UsernameAlreadyExisitException {
-//		if(checkIfUserEmailExist(user.getEmail())) {
-//			throw new EmailAlreadyExistException("This email already exist. Use different email.");
-//		}
-//		if(checkIfUsernameExist(user.getUsername())) {
-//			throw new UsernameAlreadyExisitException("This username already exist. User different username");
-//		}
-//		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
-//		return userRepository.save(user);
-//		
-//	}
-	
-	public void save(UserData userData) throws EmailAlreadyExistException, UsernameAlreadyExisitException {
-		if(checkIfUserEmailExist(userData.getEmail())) {
+	public User save(User user) throws EmailAlreadyExistException, UsernameAlreadyExisitException {
+		if(checkIfUserEmailExist(user.getEmail())) {
 			throw new EmailAlreadyExistException("This email already exist. Use different email.");
 		}
-		if(checkIfUsernameExist(userData.getUsername())) {
+		if(checkIfUsernameExist(user.getUsername())) {
 			throw new UsernameAlreadyExisitException("This username already exist. User different username");
 		}
-		User user = new User();
-		BeanUtils.copyProperties(userData, user);
-		encodePassword(user, userData);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    	String encodedPassword = passwordEncoder.encode(user.getPassword());
+    	user.setPassword(encodedPassword);
 		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
-		userRepository.save(user);
+		return userRepository.save(user);
 		
 	}
+	
+//	public void save(UserData userData) throws EmailAlreadyExistException, UsernameAlreadyExisitException {
+//		if(checkIfUserEmailExist(userData.getEmail())) {
+//			throw new EmailAlreadyExistException("This email already exist. Use different email.");
+//		}
+//		if(checkIfUsernameExist(userData.getUsername())) {
+//			throw new UsernameAlreadyExisitException("This username already exist. User different username");
+//		}
+//		User user = new User();
+//		BeanUtils.copyProperties(userData, user);
+//		encodePassword(user, userData);
+//		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
+//		userRepository.save(user);
+//		
+//	}
 	
 //	public User save(User user) throws UserAlreadyExistException {
 //		

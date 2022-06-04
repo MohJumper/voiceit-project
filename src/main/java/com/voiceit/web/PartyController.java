@@ -17,17 +17,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.voiceit.domain.Party;
+import com.voiceit.domain.User;
 import com.voiceit.reposiorty.PartyReposiorty;
 import com.voiceit.reposiorty.RoleReposiorty;
 import com.voiceit.reposiorty.UserRepository;
 import com.voiceit.reposiorty.VoteReposiorty;
 import com.voiceit.service.PartyService;
+import com.voiceit.service.UserService;
 
 @Controller
 public class PartyController {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 		
 	@Autowired
 	private VoteReposiorty voteReposiorty;
@@ -90,17 +92,26 @@ public class PartyController {
 	  model.put("voted", Boolean.parseBoolean(voted));
 	  return "vote";
 	}
-
+	
 	@GetMapping("/vote/{id}")
-	public String vote(HttpServletResponse response, @CookieValue(name = "voted", defaultValue = "false") String voted, @PathVariable Long id) {
-	  if (!Boolean.parseBoolean(voted)) {
-	    partyService.vote(id);
-	    Cookie cookie = new Cookie("voted", "true");
-	    response.addCookie(cookie);
-	  }
+	public String vote(ModelMap model, @PathVariable Long userId) {
+		Optional<User> user = userService.findById(userId);
+		model.put("user", user);
+	  
 
 	  return "redirect:/";
 	}
+
+//	@GetMapping("/vote/{id}")
+//	public String vote(HttpServletResponse response, @CookieValue(name = "voted", defaultValue = "false") String voted, @PathVariable Long id) {
+//	  if (!Boolean.parseBoolean(voted)) {
+//	    partyService.vote(id);
+//	    Cookie cookie = new Cookie("voted", "true");
+//	    response.addCookie(cookie);
+//	  }
+//
+//	  return "redirect:/";
+//	}
 	
 	
 }

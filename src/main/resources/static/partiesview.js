@@ -1,4 +1,5 @@
 function runLoad(isAdmin) {
+  debugger
   const actionHeader = document.getElementById('action')
   actionHeader.style.display = 'none'
 

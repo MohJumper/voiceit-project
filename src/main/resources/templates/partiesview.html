@@ -41,7 +41,7 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
      User: <span sec:authentication="name"></span>
 	Role(s): <span sec:authentication="principal.authorities"></span>
 	
-	   You are logged in with  Welcome <b>[[${#request.userPrincipal.principal.firstname}]]</b> 
+	   
      
      -->
     Welcome <b>[[${#request.userPrincipal.principal.username}]]</b> 
@@ -60,9 +60,9 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
 </div>
 <!-- 
 still working on the disable vote and send message when user voted 
-th:attr="onload=\"runLoad('${party.id}')\""
+
  -->
-<body >
+<body>
 	<div class="col-sm-8"><h2><b>Voting Page</b></h2></div>
 		<div sec:authorize="hasAuthority('admin')" class="col-sm-4">
 	    
@@ -74,20 +74,20 @@ th:attr="onload=\"runLoad('${party.id}')\""
 			<tr>
 				<th>Party Symbols</th>
 				<th>Party Name</th>
-				<th>Vote Here</th>
-				<th id="action"  >Action</th>
+				<th th:if="user.isVoted">Vote Here</th>
+				<th id="action" th:if="!user.isVoted" >Action</th>
 			</tr>
 		</thead>
 		
 		<tbody>
 			<tr th:each=" party : ${parties}">
 				<td th:text="${party.id}">Party Symbols</td>
-				<td th:text="${party.name}">Party Name</td>
-				<td>
+				<td th:text="${user.toString()}">Party Name</td>
+				<td th:if="!user.isVoted">
 					
-	        		<form th:action="@{/vote/{id}(id=${party.id})}" method="get">
+	        		<form th:action="@{/vote/{id}(id=${user.id})}" method="get">
 		   					 
-		   					 <button id="voted" th:disabled="${voted}"> Vote Here</button>
+		   					 <button id="voted" > Vote Here</button>
 								
 		   					 
 					</form>

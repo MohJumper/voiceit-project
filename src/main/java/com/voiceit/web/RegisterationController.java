@@ -35,20 +35,25 @@ public class RegisterationController {
 	
 	@GetMapping("/register")
 	public String getRegisterPage(ModelMap model) {
-//		User user = new User();
-		UserData user = new UserData();
+		User user = new User();
+//		UserData user = new UserData();
 		model.put("userData", user);
 		return "register";
 	}
+//	 @GetMapping("/register")
+//	    public String getEmpForm(@ModelAttribute("userData") User userData){
+//	        return "register";
+//	    }
 	
 	@PostMapping("/register")
-	public String postRegister(final @Valid @ModelAttribute("userData") UserData userData, final BindingResult bindingResult, final Model model) {
+	public String postRegister(final @Valid @ModelAttribute("userData") User userData, BindingResult bindingResult, final ModelMap model) {
 		if(bindingResult.hasErrors()) {
-//			model.addAttribute("userData", userData);
+			model.addAttribute("userData", userData);
 			return "register";
 		}
 	    
 	    try {
+	    	
 			userService.save(userData);
 		} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
 			bindingResult.rejectValue("email", 
@@ -58,6 +63,16 @@ public class RegisterationController {
 			bindingResult.rejectValue("username", 
 	 				  "userData.username", 
 	 "This username is alraedy taken");
+			bindingResult.rejectValue("firstName", 
+	 				  "userData.firstName", 
+	 "This firstName can not bee empty");
+			bindingResult.rejectValue("lastName", 
+	 				  "userData.lastName", 
+	 "This lastName can not bee empty");
+			bindingResult.rejectValue("password", 
+	 				  "userData.password", 
+	 "This password can not bee empty");
+			
 			model.addAttribute("userData", userData);
 //			e.printStackTrace();
 			return "register";

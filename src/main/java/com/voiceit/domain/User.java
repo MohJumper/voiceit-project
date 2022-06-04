@@ -34,25 +34,25 @@ public class User {
     private Long id;
     
     @NotBlank
-    @NotEmpty
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "username", unique = true)
     private String username;
+    
     @NotBlank
-    @NotEmpty
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
+    
     @NotBlank
-    @NotEmpty
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true)
     private String email;
-    @Size(min= 5, max= 18, message = "first name must be at least 18")
+    
+    @Size(min= 5, max= 18, message = "first name must be at least 5 letters")
     @NotBlank
-    @NotEmpty
-    @Column(name = "first_name" , nullable = false)
+    @Column(name = "first_name")
     private String firstName;
+    
+    @Size(min= 5, max= 18, message = "Last name must be at least 5 letters")
     @NotBlank
-    @NotEmpty
-    @Column(name = "last_name" , nullable = false)
+    @Column(name = "last_name")
     private String lastName;
     
     
