@@ -35,25 +35,30 @@ public class RegisterationController {
 	
 	@GetMapping("/register")
 	public String getRegisterPage(ModelMap model) {
-		User user = new User();
-		model.put("user", user);
+//		User user = new User();
+		UserData user = new UserData();
+		model.put("userData", user);
 		return "register";
 	}
 	
 	@PostMapping("/register")
-	public String postRegister(final @Valid UserData userData, final BindingResult bindingResult, final Model model) {
+	public String postRegister(final @Valid @ModelAttribute("userData") UserData userData, final BindingResult bindingResult, final Model model) {
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("register", userData);
+//			model.addAttribute("userData", userData);
 			return "register";
 		}
 	    
 	    try {
 			userService.save(userData);
-		} catch (EmailAlreadyExistException e) {
+		} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
 			bindingResult.rejectValue("email", 
 					 				  "userData.email", 
-					 "This email is alraedy taken");
-			model.addAttribute("register", userData);
+					 "This email is alraedy taken"
+					 				  );
+			bindingResult.rejectValue("username", 
+	 				  "userData.username", 
+	 "This username is alraedy taken");
+			model.addAttribute("userData", userData);
 //			e.printStackTrace();
 			return "register";
 		}

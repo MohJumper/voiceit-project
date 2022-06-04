@@ -15,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,24 +33,32 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-
+    @NotBlank
+    @NotEmpty
     @Column(name = "username", unique = true, nullable = false)
     private String username;
+    @NotBlank
+    @NotEmpty
     @Column(name = "password", nullable = false)
     private String password;
+    @NotBlank
+    @NotEmpty
     @Column(name = "email", unique = true, nullable = false)
     private String email;
-    
+    @Size(min= 5, max= 18, message = "first name must be at least 18")
+    @NotBlank
+    @NotEmpty
     @Column(name = "first_name" , nullable = false)
     private String firstName;
-    
+    @NotBlank
+    @NotEmpty
     @Column(name = "last_name" , nullable = false)
     private String lastName;
     
     
-//    @Column(name = "created_date", nullable = false, updatable = false)
-//    @CreationTimestamp
-//    private Date createdDate;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreationTimestamp
+    private Date createdDate;
     
     @Column(name = "voted", columnDefinition="tinyint(0) default 0")
     private boolean isVoted;
@@ -121,13 +132,13 @@ public class User {
         this.email = email;
     }
 
-//    public Date getCreatedDate() {
-//        return createdDate;
-//    }
-//
-//    public void setCreatedDate(Date createdDate) {
-//        this.createdDate = createdDate;
-//    }
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
     public Set<Role> getRoles() {
         return roles;

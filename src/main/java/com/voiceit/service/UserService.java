@@ -94,17 +94,17 @@ public class UserService {
 //		
 //	}
 	
-	public void save(UserData userData) throws EmailAlreadyExistException {
+	public void save(UserData userData) throws EmailAlreadyExistException, UsernameAlreadyExisitException {
 		if(checkIfUserEmailExist(userData.getEmail())) {
 			throw new EmailAlreadyExistException("This email already exist. Use different email.");
 		}
-//		if(checkIfUsernameExist(userData.getUsername())) {
-//			throw new UsernameAlreadyExisitException("This username already exist. User different username");
-//		}
+		if(checkIfUsernameExist(userData.getUsername())) {
+			throw new UsernameAlreadyExisitException("This username already exist. User different username");
+		}
 		User user = new User();
 		BeanUtils.copyProperties(userData, user);
 		encodePassword(user, userData);
-		userData.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
+		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
 		userRepository.save(user);
 		
 	}

@@ -37,14 +37,23 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
     Welcome <b><span  sec:authentication="name"></span>
     &nbsp;
     <span sec:authentication="principal.authorities"></span>
+    
+     User: <span sec:authentication="name"></span>
+	Role(s): <span sec:authentication="principal.authorities"></span>
+	
+	   You are logged in with  Welcome <b>[[${#request.userPrincipal.principal.firstname}]]</b> 
      
      -->
-    Welcome <b>[[${#request.userPrincipal.principal.username}]]</b>
+    Welcome <b>[[${#request.userPrincipal.principal.username}]]</b> 
+ 
     
-    <b><span  sec:authentication="name"></span>
+    <b><span  sec:authentication="name"></span></b>
     &nbsp;
     <span sec:authentication="principal.authorities"></span>
     </h1>
+   
+	
+
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="logout">
         </form>
