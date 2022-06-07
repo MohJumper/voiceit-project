@@ -82,7 +82,7 @@ still working on the disable vote and send message when user voted
 		<tbody>
 			<tr th:each=" party : ${parties}">
 				<td th:text="${party.id}">Party Symbols</td>
-				<td th:text="${user.toString()}">Party Name</td>
+				<td th:text="${party.name}">Party Name</td>
 				<td th:if="!user.isVoted">
 					
 	        		<form th:action="@{/vote/{id}(id=${user.id})}" method="get">

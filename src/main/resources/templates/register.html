@@ -1,38 +1,90 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .error {
-            color: red;
-        }
-    </style>
+<meta charset="ISO-8859-1">
+<title>Spring Security Demo</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
+<style>
+	.navbar {
+		background-color: green;
+	}
+	.error {
+	            color: red;
+	        }
+</style>
 <body>
-<h1>Register A New User</h1>
-<!-- if you are not calling in th:object then you have to user dot notation  -->
-<form method="post" th:action="@{/register}" th:object="${userData}">
-    <ul th:if="${#fields.hasErrors('*')}">
-        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" th:class="error">Input is incorrect</li>
-    </ul>
-    <p>Email: <input type="email" th:field="*{email}">
-        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span>
-    </p>
-    <p>First Name: <input th:field="*{firstName}">
-        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"></span></p>
-    <p>Last Name: <input th:field="*{lastName}"></p>
-    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"></span>
-    
-    <p>Username: <input th:field="*{username}">
-        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error"></span></p>
 
-    <p>Password: <input type="password" th:field="*{password}">
-        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></span></p>
-        
-    <input type="submit" value="Register">
-</form>
+	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Registration and
+					Login </a>
+			</div>
+		</div>
+	</nav>
+	
+	<br><br><br><br><br><br><br>
+	<!-- Create HTML registration form -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+	
+				<h1>Registration</h1>
 
+					<form th:action="@{/register}" method="post" th:object="${userData}">
+						<ul th:if="${#fields.hasErrors('*')}">
+					      <!--  this will make error appear as a list/bullet points  
+					        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" th:class="error">Input is incorrect</li>
+					      -->
+					    </ul>
+					    <div class="form-group">
+					    	<label class="control-label" for="firstName"> First Name </label>
+						    <input class="form-control" th:field="*{firstName}">
+						    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"></span>
+					    </div>
+					    <div class="form-group">
+					    	<label class="control-label" for="lastName"> Last Name </label>
+					    	<input class="form-control" th:field="*{lastName}">
+					    	<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"></span>
+					    </div>
+					    <div class="form-group">
+					    	<label class="control-label" for="email"> Email </label>
+					    	<input class="form-control" type="email" th:field="*{email}">
+					    	<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span>
+					    </div>
+					    <div class="form-group">
+					    	<label class="control-label" for="username"> Username </label>
+						    <input class="form-control" th:field="*{username}">
+						    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error"></span>
+					    </div>
+					   <div class="form-group">
+					   	  <label class="control-label" for="password"> Password </label>
+						  <input class="form-control" type="password" th:field="*{password}" >
+						  <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></span>
+					   </div>
+
+					   
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Register</button>
+							<span>Already registered? <a href="/" th:href="@{/login}">Login
+									here</a></span>
+						</div>
+					</form>
+
+
+			</div>
+		</div>
+	</div>
 </body>
 </html>

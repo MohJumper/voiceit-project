@@ -45,12 +45,12 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
     
-    @Size(min= 5, max= 18, message = "first name must be at least 5 letters")
+    @Size(min= 2, max= 30, message = "first name must be at least 2 letters and max of 30")
     @NotBlank
     @Column(name = "first_name")
     private String firstName;
     
-    @Size(min= 5, max= 18, message = "Last name must be at least 5 letters")
+    @Size(min= 2, max= 30, message = "Last name must be at least 2 letters and max of 30")
     @NotBlank
     @Column(name = "last_name")
     private String lastName;

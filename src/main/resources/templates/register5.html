@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1>Register A New Voter</h1>
+<!-- if you are not calling in th:object then you have to user dot notation  -->
+<form method="post" th:action="@{/register}" th:object="${userData}">
+    <ul th:if="${#fields.hasErrors('*')}">
+      <!--  this will make error appear as a list/bullet points  
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" th:class="error">Input is incorrect</li>
+      
+      -->
+    </ul>
+    <p>Email: <input type="email" th:field="*{email}">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span>
+    </p>
+    <p>First Name: <input th:field="*{firstName}">
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"></span></p>
+    <p>Last Name: <input th:field="*{lastName}"></p>
+    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"></span>
+    
+    <p>Username: <input th:field="*{username}">
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error"></span></p>
+
+    <p>Password: <input type="password" th:field="*{password}">
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></span></p>
+        
+    <input type="submit" value="Register">
+</form>
+
+</body>
+</html>
