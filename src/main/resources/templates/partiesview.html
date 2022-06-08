@@ -6,82 +6,17 @@
 <meta charset="UTF-8">
 <title>Show all parties</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-<!-- link for the style of the table and buttons 
-
-https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add-and-delete-row-feature
-
-<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New Party</button>
-
-	---------------------
-	vote here 
-	<a th:href="@{/vote/{id}(id=${party.id})}"
-	        			class="edit vote" title="vote" data-toggle="tooltip">Vote Here</a>
-
-	<input id="voted" type="submit" value="Vote Here" />
-	
-	 <button id="voted" th:onclick="checkIfClicked()" >Vote Here</button>
- -->
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+<link th:href="@{/css/partiesview.css}" rel="stylesheet" />
+
 <script type="text/javascript" src="partiesview.js"> </script>
 </head>
-<style>
- html,body{
-        height: 100%;
-      }
-.navbar {
-	background-color: black;
-}
 
-#logout {
-	position: absolute;
-    right: 0px;
-}
-
-#addNew {
-	position: relative;
-    left: 0px;
-}
-
-#page{
-	color: white;
-	position:absolute; 
-	left:-5px; 
-
-}
-
-#loggedUser{
-
-	color: white;
-}
-
-#result{
-	 text-align:center;
-
-}
-
-#multi-color-bg {
-  width: 100%;
-  height: 100%;
-  background-image: 
-      linear-gradient(to right, rgb(132, 208, 191), rgb(153, 132, 208));
-  background-repeat: no-repeat,
-      no-repeat,
-      no-repeat;
-  background-position: bottom right,
-      left,
-      right;
-}
-
-
-</style>
-<!-- 
-still working on the disable vote and send message when user voted 
-
- -->
  <!-- create navigation bar ( header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -98,9 +33,8 @@ still working on the disable vote and send message when user voted
 			</div>
 			<div id="page" class="col-sm-8"><h2><b>VOTING PAGE</b></h2></div>
 			
-			<div> 
-				<a id="result" class="navbar-brand" href="#" th:href="@{/result}"> Result</a>
-			</div>
+			
+			
 			
 		</div>
 	</nav>
@@ -114,12 +48,14 @@ still working on the disable vote and send message when user voted
 	
 	</div>
 	
+			
 	
 <body id="multi-color-bg">
 	
 		<div id="addNew" sec:authorize="hasAuthority('admin')" class="col-sm-4">
 	    
 	     <a sec:authorize="hasAuthority('admin')" href="/newparty" class="btn btn-info add-new">Add New Party</a>
+	     <a id="result" class="btn btn-info add-new" href="#" th:href="@{/votingresults}"> Go To Result</a>
     </div>
     
     <br><br>
@@ -136,7 +72,7 @@ still working on the disable vote and send message when user voted
 		
 		<tbody>
 			<tr th:each=" party : ${parties}">
-				<td th:text="${party.id}">Party Symbols</td>
+				<td th:text="${party.id}">Party ID</td>
 				<td th:text="${party.name}">Party Name</td>
 				<td th:if="!user.isVoted">
 					
@@ -162,20 +98,6 @@ still working on the disable vote and send message when user voted
                     class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     
 				</td>
-				<!-- 
-				add to each a tage
-				th:href="@{/edit/{id}(id=${part.id})}"
-				
-				<a th:href="@{/delete/{id}(id=${party.id})}"
-                    
-                    class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-				
-				..................................
-				 <a class="btn btn-default" >Edit</a>
-                     &nbsp;&nbsp;&nbsp;
-        			<a class="btn btn-default">Delete</a>
-				
-				 -->
 				
 			</tr>
 		</tbody>
