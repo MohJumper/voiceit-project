@@ -2,20 +2,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <meta charset="ISO-8859-1">
-<title>Spring Security Demo</title>
+<title>VoiceIt App</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 </head>
 <style>
+ html,body{
+        height: 100%;
+      }
 	.navbar {
-		background-color: green;
+		background-color: black;
 	}
 	.error {
 	            color: red;
 	        }
+	#multi-color-bg {
+	  width: 100%;
+	  height: 100%;
+  		background-image: 
+      linear-gradient(to right, rgb(132, 208, 191), rgb(153, 132, 208));
+	  background-repeat: no-repeat,
+	      no-repeat,
+	      no-repeat;
+	  background-position: bottom right,
+	      left,
+	      right;
+}	 
 </style>
-<body>
+<body id="multi-color-bg">
 
 	<!-- create navigation bar ( header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">

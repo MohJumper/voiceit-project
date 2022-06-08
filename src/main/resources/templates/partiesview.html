@@ -24,52 +24,107 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script type="text/javascript" src="partiesview.js"> </script>
 </head>
+<style>
+ html,body{
+        height: 100%;
+      }
+.navbar {
+	background-color: black;
+}
+
+#logout {
+	position: absolute;
+    right: 0px;
+}
+
+#addNew {
+	position: relative;
+    left: 0px;
+}
+
+#page{
+	color: white;
+	position:absolute; 
+	left:-5px; 
+
+}
+
+#loggedUser{
+
+	color: white;
+}
+
+#result{
+	 text-align:center;
+
+}
+
+#multi-color-bg {
+  width: 100%;
+  height: 100%;
+  background-image: 
+      linear-gradient(to right, rgb(132, 208, 191), rgb(153, 132, 208));
+  background-repeat: no-repeat,
+      no-repeat,
+      no-repeat;
+  background-position: bottom right,
+      left,
+      right;
+}
 
 
-<div sec:authorize="isAuthenticated()" class="text-center">
-    <h1>
-    
-    <!-- 
-    removed to test different approach 
-    
-    Welcome <b><span  sec:authentication="name"></span>
-    &nbsp;
-    <span sec:authentication="principal.authorities"></span>
-    
-     User: <span sec:authentication="name"></span>
-	Role(s): <span sec:authentication="principal.authorities"></span>
-	
-	   
-     
-     -->
-    Welcome <b>[[${#request.userPrincipal.principal.username}]]</b> 
- 
-    
-    <b><span  sec:authentication="name"></span></b>
-    &nbsp;
-    <span sec:authentication="principal.authorities"></span>
-    </h1>
-   
-	
-
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="logout">
-        </form>
-</div>
+</style>
 <!-- 
 still working on the disable vote and send message when user voted 
 
  -->
-<body>
-	<div class="col-sm-8"><h2><b>Voting Page</b></h2></div>
-		<div sec:authorize="hasAuthority('admin')" class="col-sm-4">
+ <!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div id="logout" class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+						
+				</button>
+				<a id="log" class="navbar-brand" href="#" th:href="@{/logout}"> Logout</a>
+			</div>
+			<div id="page" class="col-sm-8"><h2><b>VOTING PAGE</b></h2></div>
+			
+			<div> 
+				<a id="result" class="navbar-brand" href="#" th:href="@{/result}"> Result</a>
+			</div>
+			
+		</div>
+	</nav>
+	<!-- end of nav bar --------------------------------------------------- -->
+	<br><br><br><br><br><br><br>
+	
+	<div id="loggedUser" style="text-transform:uppercase;">
+		<h1>
+	     WELCOME <b>[[${#request.userPrincipal.principal.username}]]</b> 
+	   	</h1>
+	
+	</div>
+	
+	
+<body id="multi-color-bg">
+	
+		<div id="addNew" sec:authorize="hasAuthority('admin')" class="col-sm-4">
 	    
 	     <a sec:authorize="hasAuthority('admin')" href="/newparty" class="btn btn-info add-new">Add New Party</a>
     </div>
+    
+    <br><br>
 	
-	<table border="1" cellpadding="10" class="table table-bordered table-striped" >
+	<table id="multi-color-bg" class="table table-bordered table-striped" >
 		<thead>
 			<tr>
 				<th>Party Symbols</th>
