@@ -1,10 +1,15 @@
-# Coming Soon ... 
+# Intro
+
+...
 
 ## Agile Workflow in Trello
-... 
+
+Simulated a real-world experience by taking an agile approach to workflow and developed user stories in Trello and notion.so. During the developments there were a few spikes that needed further exploration and research.
+
+![Screenshot from 2022-06-09 01-16-47](https://user-images.githubusercontent.com/50962389/172769995-07842436-bd04-4716-8a2a-a3321c5a3f39.png)
 
 ## Demo 
-Work in progress ... 
+Video demo is coming ... 
 
 
 Validated user inputs before submitting to the database.
