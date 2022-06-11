@@ -41,9 +41,8 @@ public class PartyService {
 			Party nParty = currPartyOpt.get();
 			nParty.setId(party.getId());
 			nParty.setName(party.getName());
-			
+
 			nParty = partyReposiorty.save(nParty);
-			
 			return nParty;
 			
 		} else {

@@ -89,6 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //      .authorizeRequests()
       .antMatchers(
           "/register",
+          "/vote/**",
           "/js/**",
           "/css/**",
           "/img/**",
@@ -114,7 +115,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .logout().permitAll()
       .and()
       // TODO implement error here 
-      .exceptionHandling().accessDeniedPage("/product/error")
+      .exceptionHandling().accessDeniedPage("/deniedaccess")
       ;
     }
 

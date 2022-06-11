@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.voiceit.domain.Party;
 import com.voiceit.domain.Role;
 import com.voiceit.domain.User;
 import com.voiceit.exception.EmailAlreadyExistException;
@@ -99,6 +100,16 @@ public class UserService {
     	user.setPassword(encodedPassword);
 		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
 		return userRepository.save(user);
+		
+	}
+	
+	public void update(User user) {
+		Optional<User> currUserOpt = userRepository.findById(user.getId());
+
+		if(currUserOpt.isPresent()) {
+			userRepository.save(user);
+
+		}
 		
 	}
 	

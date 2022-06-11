@@ -52,9 +52,9 @@
 	
 <body id="multi-color-bg">
 	
-		<div id="addNew" sec:authorize="hasAuthority('admin')" class="col-sm-4">
+		<div id="addNew" sec:authorize="hasAuthority('admin')" class="col-sm-4" th:block th:switch="${role.name}">
 	    
-	     <a sec:authorize="hasAuthority('admin')" href="/newparty" class="btn btn-info add-new">Add New Party</a>
+	     <a sec:authorize="hasAuthority('admin')" href="/newparty" class="btn btn-info add-new" >Add New Party</a>
 	     <a id="result" class="btn btn-info add-new" href="#" th:href="@{/votingresults}"> Go To Result</a>
     </div>
     
@@ -65,7 +65,7 @@
 			<tr>
 				<th>Party Symbols</th>
 				<th>Party Name</th>
-				<th th:if="user.isVoted">Vote Here</th>
+				<th th:if="${#request.userPrincipal.principal.isVoted == false}">Vote Here</th>
 				<th id="action" th:if="!user.isVoted" >Action</th>
 			</tr>
 		</thead>
@@ -74,9 +74,12 @@
 			<tr th:each=" party : ${parties}">
 				<td th:text="${party.id}">Party ID</td>
 				<td th:text="${party.name}">Party Name</td>
-				<td th:if="!user.isVoted">
+				<td th:if="${#request.userPrincipal.principal.isVoted == false}">
 					
-	        		<form th:action="@{/vote/{id}(id=${user.id})}" method="get">
+					<!-- 
+						<form th:action="@{/vote/{uid}(uid=${#request.userPrincipal.principal.id}-${party.id})}" method="get">
+					 -->
+	        		<form th:action="@{/vote/{uid}(uid=12345)}" method="get">
 		   					 
 		   					 <button id="voted" > Vote Here</button>
 								

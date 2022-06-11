@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.voiceit.domain.Party;
+import com.voiceit.domain.Role;
 import com.voiceit.domain.User;
 import com.voiceit.reposiorty.PartyReposiorty;
 import com.voiceit.reposiorty.RoleReposiorty;
@@ -47,6 +48,8 @@ public class PartyController {
 		List<Party> parties = partyService.findAll();
 //		System.out.println(parties);
 		model.put("parties", parties);
+		Role role = new Role();
+		model.put("role", role);
 		return "partiesview";
 	}
 	
@@ -54,6 +57,9 @@ public class PartyController {
 	public String createNewParty(ModelMap model) {
 		Party nParty = new Party();
 		model.put("nParty", nParty);
+		
+		Role role = new Role();
+		model.put("role", role);
 		return "newparty";
 	}
 	
@@ -84,21 +90,36 @@ public class PartyController {
 		return "redirect:/";
 	}
 	
-	/*
-	 * Both method work on storing the cookie status 
-	 */
-	@GetMapping("/vote")
-	public String main(Map<String, Object> model, @CookieValue(name = "voted", defaultValue = "false") String voted) {
-	  model.put("voted", Boolean.parseBoolean(voted));
-	  return "vote";
-	}
+//	/*
+//	 * Both method work on storing the cookie status 
+//	 */
+//	@GetMapping("/vote")
+//	public String main(Map<String, Object> model, @CookieValue(name = "voted", defaultValue = "false") String voted) {
+//	  model.put("voted", Boolean.parseBoolean(voted));
+//	  return "vote";
+//	}
 	
 	@GetMapping("/vote/{id}")
-	public String vote(ModelMap model, @PathVariable Long userId) {
-		Optional<User> user = userService.findById(userId);
-		model.put("user", user);
-	  
-
+	public String vote(@PathVariable String id) {
+		String[] ids = id.split("-");
+		Long uid = Long.parseLong(ids[0]);
+		Long pid = Long.parseLong(ids[1]);
+		Optional<User> user = userService.findById(uid);
+		if(user.isPresent()) {
+			User foundUser = user.get();
+			foundUser.setIsVoted(true);
+			userService.update(foundUser);
+			
+		}
+		Party party = partyService.findPartyById(pid);
+		if(party.getId() != null) {
+//			Party foundParty = party.get();
+//			foundUser.setIsVoted(true);
+//			userService.update(foundUser);
+			
+//			partyService.updateParty(party);
+			partyService.vote(pid);
+		}
 	  return "redirect:/";
 	}
 

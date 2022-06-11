@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.voiceit.domain.Party;
+import com.voiceit.domain.Role;
 import com.voiceit.reposiorty.PartyReposiorty;
 import com.voiceit.reposiorty.RoleReposiorty;
 import com.voiceit.reposiorty.UserRepository;
@@ -32,12 +33,14 @@ public class UserController {
 	private RoleReposiorty roleReposiorty;
 	
 	
-	@GetMapping("/welcome")
+	@GetMapping("/deniedaccess")
 	public String showWelcomePage(ModelMap model) {
 		
 //		List<Party> parties = partyReposiorty.findAll();
 //		model.put("parties", parties);
-		return "welcome";
+		Role role = new Role();
+		model.put("role", role);
+		return "deniedaccess";
 	}
 	
 	@GetMapping("/isadmin/{id}")

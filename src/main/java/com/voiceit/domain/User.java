@@ -1,5 +1,6 @@
 package com.voiceit.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,7 +59,7 @@ public class User {
     
     @Column(name = "created_date", nullable = false, updatable = false)
     @CreationTimestamp
-    private Date createdDate;
+    private LocalDate createdDate;
     
     @Column(name = "voted", columnDefinition="tinyint(0) default 0")
     private boolean isVoted;
@@ -96,7 +97,7 @@ public class User {
 		return isVoted;
 	}
 
-	public void setVoted(boolean isVoted) {
+	public void setIsVoted(boolean isVoted) {
 		this.isVoted = isVoted;
 	}
 
@@ -132,11 +133,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getCreatedDate() {
+    public LocalDate getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
 
