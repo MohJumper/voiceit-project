@@ -5,6 +5,33 @@ html,body{
 	background-color: black;
 }
 
+#logout {
+	position: absolute;
+    right: 0px;
+}
+
+#addNew {
+	position: relative;
+    left: 0px;
+}
+
+#page{
+	color: white;
+	position:absolute; 
+	left:-5px; 
+
+}
+
+#loggedUser{
+	position: relative;
+	color: black;
+	 left: 15px;
+}
+
+#result{
+	 text-align:center;
+
+}
 body {
   width: 100%;
   height: 100%;
@@ -78,9 +105,5 @@ input:checked + .slider {
 }
 
 .backButton, .switchButton {
-	margin-left: 45%;
-
 	display:inline-block;
-
 }
-

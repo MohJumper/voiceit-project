@@ -99,11 +99,35 @@ public class PartyController {
 //	  return "vote";
 //	}
 	
-	@GetMapping("/vote/{id}")
-	public String vote(@PathVariable String id) {
-		String[] ids = id.split("-");
-		Long uid = Long.parseLong(ids[0]);
-		Long pid = Long.parseLong(ids[1]);
+//	@GetMapping("/vote/{id}")
+//	public String vote(@PathVariable String id) {
+//		String[] ids = id.split("-");
+//		Long uid = Long.parseLong(ids[0]);
+//		Long pid = Long.parseLong(ids[1]);
+//		Optional<User> user = userService.findById(uid);
+//		if(user.isPresent()) {
+//			User foundUser = user.get();
+//			foundUser.setIsVoted(true);
+//			userService.update(foundUser);
+//			
+//		}
+//		Party party = partyService.findPartyById(pid);
+//		if(party.getId() != null) {
+////			Party foundParty = party.get();
+////			foundUser.setIsVoted(true);
+////			userService.update(foundUser);
+//			
+////			partyService.updateParty(party);
+//			partyService.vote(pid);
+//		}
+//	  return "redirect:/";
+//	}
+	
+	@PostMapping("/vote/{uid}/{pid}")
+	public String vote(@PathVariable Long uid, @PathVariable Long pid) {
+//		String[] ids = id.split("-");
+//		Long uid = Long.parseLong(ids[0]);
+//		Long pid = Long.parseLong(ids[1]);
 		Optional<User> user = userService.findById(uid);
 		if(user.isPresent()) {
 			User foundUser = user.get();

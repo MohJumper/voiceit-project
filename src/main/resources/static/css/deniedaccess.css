@@ -1,7 +1,7 @@
 html,body{
         height: 100%;
       }
-#multi-color-bg {
+body {
   width: 100%;
   height: 100%;
   background-image: 
@@ -14,8 +14,22 @@ html,body{
       right;
 }
 
+body.dark {
+  width: 100%;
+  height: 100%;
+  background-image: 
+      linear-gradient(to right, rgb(250, 250, 250), rgb(0, 0, 0));
+  background-repeat: no-repeat,
+      no-repeat,
+      no-repeat;
+  background-position: bottom right,
+      left,
+      right;
+}
+
+
 #backbutton{
 	margin-left: 20px;
-    
+    display:inline-block;
 	
 }

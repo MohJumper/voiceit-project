@@ -9,17 +9,38 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 <link th:href="@{/css/displayresultschart.css}" rel="stylesheet" />
+
+
 </head>
-<body id="multi-color-bg">
+<body class="multi-color-bg">
 	<div class="container" id="multi-color-bg">
 		<h2 align="center">Voters Result</h2>
 
 		<div id="container"
-			style="width: 550px; height: 400px; margin: 0 auto"></div>
-			<br> <form action="#" th:action="@{/}" style="text-align:center;" >
-			<button id="backbutton" type="submit" class="btn btn-info col-2"> Back</button>
-			</form>
+			style="width: 550px; height: 400px; margin: 0 auto">
+			</div>
+			<br> 
+			 <div class="backButton"> 
+				<form action="#" th:action="@{/}" >
+				
+				<button id="backbutton" type="submit" class="btn btn-info col-2"> Back</button>
+				</form>
+			
+			</div>
+			 <!-- switch to change theme -->
+	        <div class="switchButton">
+			<label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
+            </div>
+          </label>
+		</div>
+		
 	</div>
+		
+		
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
@@ -77,5 +98,6 @@
 
 
 </body>
-
+<script type="text/javascript" src="/js/globaltheme.js"> </script>
+		
 </html>

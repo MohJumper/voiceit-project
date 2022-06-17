@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	
-<link th:href="@{/css/partiesview.css}" rel="stylesheet" />
+<link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
 
 <script type="text/javascript" src="partiesview.js"> </script>
 </head>
@@ -31,12 +31,11 @@
 				</button>
 				<a id="log" class="navbar-brand" href="#" th:href="@{/logout}"> Logout</a>
 			</div>
+			
 			<div id="page" class="col-sm-8"><h2><b>VOTING PAGE</b></h2></div>
-			
-			
-			
-			
+
 		</div>
+		
 	</nav>
 	<!-- end of nav bar --------------------------------------------------- -->
 	<br><br><br><br><br><br><br>
@@ -47,10 +46,16 @@
 	   	</h1>
 	
 	</div>
-	
+	<label class="switch">
+            <i class="fas fa-adjust"></i>
+           	 <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
+            </div>
+          </label>
 			
 	
-<body id="multi-color-bg">
+<body class="multi-color-bg">
 	
 		<div id="addNew" sec:authorize="hasAuthority('admin')" class="col-sm-4" th:block th:switch="${role.name}">
 	    
@@ -63,10 +68,10 @@
 	<table id="multi-color-bg" class="table table-bordered table-striped" >
 		<thead>
 			<tr>
-				<th>Party Symbols</th>
+				<th>Party ID</th>
 				<th>Party Name</th>
 				<th th:if="${#request.userPrincipal.principal.isVoted == false}">Vote Here</th>
-				<th id="action" th:if="!user.isVoted" >Action</th>
+				<th id="action" >Action</th>
 			</tr>
 		</thead>
 		
@@ -78,8 +83,10 @@
 					
 					<!-- 
 						<form th:action="@{/vote/{uid}(uid=${#request.userPrincipal.principal.id}-${party.id})}" method="get">
+						<form th:action="@{/vote/{uid}(uid=12345)}" method="get">
 					 -->
-	        		<form th:action="@{/vote/{uid}(uid=12345)}" method="get">
+	        		
+	        		<form th:action="@{/vote/{uid}(uid=${#request.userPrincipal.principal.id}, pid=${party.id})}" method="post">
 		   					 
 		   					 <button id="voted" > Vote Here</button>
 								
@@ -106,6 +113,8 @@
 		</tbody>
 		
 	</table >
-	
+	<script type="text/javascript" src="/js/globaltheme.js"> </script>
 </body>
+
+
 </html>

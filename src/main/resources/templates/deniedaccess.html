@@ -8,7 +8,8 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	
-<link th:href="@{/css/deniedaccess.css}" rel="stylesheet" />
+<link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
+
 <body id="multi-color-bg">
 	<div id="loggedUser" style="text-transform:uppercase;">
 			<h1>
@@ -20,6 +21,17 @@
 	<form action="#" th:action="@{/}" style="text-align:left;" >
 			<button id="backbutton" type="submit" class="btn btn-info add-new"> Return Back to Voting Page</button>
 	</form>
-	
+	 <!-- switch to change theme -->
+	        <div class="switchButton">
+			<label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
+            </div>
+          </label>
+		</div>
+<script type="text/javascript" src="/js/globaltheme.js"> </script>
 </body>
+
 </html>

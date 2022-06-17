@@ -6,10 +6,12 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	
-<link th:href="@{/css/register.css}" rel="stylesheet" />
+<link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
+
+
 </head>
 
-<body id="multi-color-bg">
+<body class="multi-color-bg">
 
 	<!-- create navigation bar ( header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -25,6 +27,16 @@
 				<a class="navbar-brand" href="#" th:href="@{/}">Registration and
 					Login </a>
 			</div>
+			<!-- switch to change theme -->
+			<label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
+            </div>
+          </label>
+		</div>
+		
 		</div>
 	</nav>
 	
@@ -81,4 +93,5 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="/js/globaltheme.js"> </script>
 </html>
