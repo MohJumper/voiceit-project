@@ -81,61 +81,6 @@ public class RegisterationController {
 	}
 	
 	// --------------------------------------------------------------- 
-	
-//	@PostMapping("/register")
-//	public String postRegister(User user) {
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//		User userExists = userService.findUserByUserName(user.getUsername());
-//
-//	    String encodedPassword = passwordEncoder.encode(user.getPassword());
-//	    user.setPassword(encodedPassword);
-//	    
-//	    try {
-//			userService.save(user);
-//		} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "redirect:/";
-//	}
-	// --------------------------------------------------------------------- 
-//	@PostMapping("/register")
-//	public ModelAndView postRegister(@Validated User user, BindingResult bindingResult) {
-//		
-//        ModelAndView modelAndView = new ModelAndView();
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//		User userExists = userService.findUserByUserName(user.getUsername());
-//		if(userExists != null) {
-//			bindingResult.rejectValue("userName", 
-//									 "error.user", 
-//									 "This username is alraedy taken");
-//		}
-//		if (bindingResult.hasErrors()) {
-//	            modelAndView.setViewName("register");
-//			} else {
-//				 try {
-//						userService.save(user);
-//					} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
-//						e.printStackTrace();
-//					}
-//				 String encodedPassword = passwordEncoder.encode(user.getPassword());
-//				 user.setPassword(encodedPassword);
-//				 modelAndView.addObject("successMessage", "User has been registered successfully");
-//				 modelAndView.addObject("user", new User());
-//				 modelAndView.setViewName("register");
-//			}
-//		
-//	   
-//	    
-////	    try {
-////			userService.save(user);
-////		} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
-////			// TODO Auto-generated catch block
-////			e.printStackTrace();
-////		}
-////		return "redirect:/";
-//		return modelAndView;
-//	}
 
 	
 	

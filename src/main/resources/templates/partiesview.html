@@ -44,6 +44,7 @@
 		<h1>
 	     WELCOME <b>[[${#request.userPrincipal.principal.username}]]</b> 
 	   	</h1>
+	   	<h3> You are a <b>[[${#request.userPrincipal.principal.getAuthorities}]]</b></h3>
 	
 	</div>
 	<label class="switch">

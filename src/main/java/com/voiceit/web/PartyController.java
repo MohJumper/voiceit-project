@@ -31,12 +31,6 @@ public class PartyController {
 	
 	@Autowired
 	private UserService userService;
-		
-	@Autowired
-	private VoteReposiorty voteReposiorty;
-	
-	@Autowired
-	private RoleReposiorty roleReposiorty;
 	
 	@Autowired
 	private PartyService partyService;

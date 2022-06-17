@@ -1,8 +1,9 @@
-const chk = document.getElementById('switch');
+const switched = document.getElementById('switch');
 
-chk.addEventListener('click', () => {
-  chk.checked?document.body.classList.add("dark"):document.body.classList.remove("dark");
-  localStorage.setItem('darkModeStatus', chk.checked);
+
+switched.addEventListener('click', () => {
+  switched.checked ? document.body.classList.add("dark") : document.body.classList.remove("dark");
+  localStorage.setItem('darkModeStatus', switched.checked);
 });
 
 window.addEventListener('load', (event) => {

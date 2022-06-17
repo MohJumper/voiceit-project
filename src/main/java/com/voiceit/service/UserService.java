@@ -30,16 +30,7 @@ public class UserService {
     
     @Autowired
     PasswordEncoder passwordEncoder;
-//
-//    @Autowired
-//    public UserService(UserRepository userRepository,
-//    		RoleReposiorty roleRepository,
-//                       BCryptPasswordEncoder bCryptPasswordEncoder) {
-//        this.userRepository = userRepository;
-//        this.roleRepository = roleRepository;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
-//	
+
 	
 	public Boolean isAdmin(Long roleId) {
 		User user = userRepository.getById(roleId);
@@ -87,6 +78,7 @@ public class UserService {
 	
 	/*
 	 * JPA does handle saving the object so this makes a call to the save method and setting all role to a user as a default
+	 * This also throw errors if the username of email is used before
 	 */
 	public User save(User user) throws EmailAlreadyExistException, UsernameAlreadyExisitException {
 		if(checkIfUserEmailExist(user.getEmail())) {
@@ -112,29 +104,6 @@ public class UserService {
 		}
 		
 	}
-	
-//	public void save(UserData userData) throws EmailAlreadyExistException, UsernameAlreadyExisitException {
-//		if(checkIfUserEmailExist(userData.getEmail())) {
-//			throw new EmailAlreadyExistException("This email already exist. Use different email.");
-//		}
-//		if(checkIfUsernameExist(userData.getUsername())) {
-//			throw new UsernameAlreadyExisitException("This username already exist. User different username");
-//		}
-//		User user = new User();
-//		BeanUtils.copyProperties(userData, user);
-//		encodePassword(user, userData);
-//		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
-//		userRepository.save(user);
-//		
-//	}
-	
-//	public User save(User user) throws UserAlreadyExistException {
-//		
-//		user.setRoles(new HashSet<Role> (Arrays.asList(new Role("user"))));
-//		return userRepository.save(user);
-//		
-//	}
-	
 	// ----------------------------------------------------- helper methods for user validation ------------------------------------------- 
 	
 	 private boolean checkIfUserEmailExist(String email) {
