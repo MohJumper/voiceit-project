@@ -20,8 +20,6 @@ public class UserController {
 	@GetMapping("/deniedaccess")
 	public String showWelcomePage(ModelMap model) {
 		
-//		List<Party> parties = partyReposiorty.findAll();
-//		model.put("parties", parties);
 		Role role = new Role();
 		model.put("role", role);
 		return "deniedaccess";

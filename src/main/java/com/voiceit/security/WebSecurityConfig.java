@@ -40,53 +40,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//      http.authorizeRequests()
-////      .antMatchers("/").permitAll()
-//      // ------- add this for register page
-////      .authorizeRequests()
-//      .antMatchers(
-//          "/register",
-//          "/js/**",
-//          "/css/**",
-//          "/img/**",
-//          "/webjars/**")
-//      
-//      .permitAll()
-////      .anyRequest()
-////      .authenticated()
-//      .and()
-//      .authorizeRequests()
-//    // ----------- end 
-//      .antMatchers("/delete/**").hasAuthority("admin")
-//      .antMatchers("/edit/**").hasAuthority("admin")
-//      .antMatchers("/newparty/**").hasAuthority("admin")
-//      // add ant matcher for create new party
-//      .anyRequest().authenticated()
-//      
-//      .and()
-//      .formLogin()
-//      .loginPage("/login")
-//      .permitAll()
-//      .and().csrf().disable()
-//      .logout().permitAll()
-//      .and()
-//      // TODO implement error here 
-//      .exceptionHandling().accessDeniedPage("/product/error")
-//      ;
-//    }
     
     /*
-     * Working on making the registration work
+     * config the authentication and authorization
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       http.authorizeRequests()
-//      .antMatchers("/").permitAll()
-      // ------- add this for register page
-//      .authorizeRequests()
       .antMatchers(
           "/register",
           "/vote/**",
@@ -96,15 +56,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           "/webjars/**")
       
       .permitAll()
-//      .anyRequest()
-//      .authenticated()
       .and()
       .authorizeRequests()
     // ----------- end 
       .antMatchers("/delete/**").hasAuthority("admin")
       .antMatchers("/edit/**").hasAuthority("admin")
       .antMatchers("/newparty/**").hasAuthority("admin")
-      // add ant matcher for create new party
       .anyRequest().authenticated()
       
       .and()
@@ -114,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .and().csrf().disable()
       .logout().permitAll()
       .and()
-      // TODO implement error here 
+      // handle error when authorization is denied
       .exceptionHandling().accessDeniedPage("/deniedaccess")
       ;
     }

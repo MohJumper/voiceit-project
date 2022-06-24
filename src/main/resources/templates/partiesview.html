@@ -14,7 +14,6 @@
 	
 <link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
 
-<script type="text/javascript" src="partiesview.js"> </script>
 </head>
 
  <!-- create navigation bar ( header) -->
@@ -81,24 +80,10 @@
 				<td th:text="${party.id}">Party ID</td>
 				<td th:text="${party.name}">Party Name</td>
 				<td th:if="${#request.userPrincipal.principal.isVoted == false}" >
-					
-					<!-- 
-					th:if="${#request.userPrincipal.principal.isVoted == false}"
-					th:if="${#request.userPrincipal.principal.isVoted == false}"
-						<form th:action="@{/vote/{uid}(uid=${#request.userPrincipal.principal.id}-${party.id})}" method="get">
-						<form th:action="@{/vote/{uid}(uid=12345)}" method="get">
-						<form th:action="@{/vote/{uid}(uid=${#request.userPrincipal.principal.id}, pid=${party.id})}" method="get">
-		   					 
-		   					 <button id="voted" > Vote Here</button>
-								
-		   					 
-					</form>
-					 -->
 					<form th:action="@{/vote/{uid}-{pid}(uid=${#request.userPrincipal.principal.id}, pid=${party.id})}" method="post">
-		   					 
+						 
 		   					 <button id="voted" > Vote Here</button>
-								
-		   					 
+
 					</form>	        		
 				</td>
 				<td class="actionButtons">

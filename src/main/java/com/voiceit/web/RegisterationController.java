@@ -1,30 +1,19 @@
 package com.voiceit.web;
 
-import java.util.Arrays;
-import java.util.HashSet;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.voiceit.domain.Role;
 import com.voiceit.domain.User;
 import com.voiceit.exception.EmailAlreadyExistException;
 import com.voiceit.exception.UsernameAlreadyExisitException;
-import com.voiceit.service.UserData;
 import com.voiceit.service.UserService;
 
 @Controller
@@ -36,14 +25,10 @@ public class RegisterationController {
 	@GetMapping("/register")
 	public String getRegisterPage(ModelMap model) {
 		User user = new User();
-//		UserData user = new UserData();
 		model.put("userData", user);
 		return "register";
 	}
-//	 @GetMapping("/register")
-//	    public String getEmpForm(@ModelAttribute("userData") User userData){
-//	        return "register";
-//	    }
+
 	
 	@PostMapping("/register")
 	public String postRegister(final @Valid @ModelAttribute("userData") User userData, BindingResult bindingResult, final ModelMap model) {
