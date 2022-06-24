@@ -41,7 +41,8 @@ public class PartyService {
 			Party nParty = currPartyOpt.get();
 			nParty.setId(party.getId());
 			nParty.setName(party.getName());
-
+			
+			nParty.setVoteCount(nParty.getVoteCount() +1);
 			nParty = partyReposiorty.save(nParty);
 			return nParty;
 			
@@ -57,15 +58,15 @@ public class PartyService {
 		
 	}
 
-	public void vote(Long id) {
-		Optional<Party> currParty = partyReposiorty.findById(id);
-		if(currParty.isPresent()) {
-			Party nParty = currParty.get();
-			nParty.setVoteCount(nParty.getVoteCount() +1);
-			updateParty(nParty);
-		}
-		
-	}
+//	public void vote(Long id) {
+//		Optional<Party> currParty = partyReposiorty.findById(id);
+//		if(currParty.isPresent()) {
+//			Party nParty = currParty.get();
+//			nParty.setVoteCount(nParty.getVoteCount() +1);
+//			updateParty(nParty);
+//		}
+//		
+//	}
 	
 	
 

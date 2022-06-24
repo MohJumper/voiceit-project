@@ -117,30 +117,50 @@ public class PartyController {
 //	  return "redirect:/";
 //	}
 	
-	@PostMapping("/vote/{uid}/{pid}")
-	public String vote(@PathVariable Long uid, @PathVariable Long pid) {
-//		String[] ids = id.split("-");
-//		Long uid = Long.parseLong(ids[0]);
-//		Long pid = Long.parseLong(ids[1]);
-		Optional<User> user = userService.findById(uid);
-		if(user.isPresent()) {
-			User foundUser = user.get();
-			foundUser.setIsVoted(true);
-			userService.update(foundUser);
-			
-		}
-		Party party = partyService.findPartyById(pid);
-		if(party.getId() != null) {
-//			Party foundParty = party.get();
+//	@GetMapping("/vote/{uid}/{pid}")
+//	public String vote(@PathVariable Long uid, @PathVariable Long pid) {
+////		String[] ids = id.split("-");
+////		Long uid = Long.parseLong(ids[0]);
+////		Long pid = Long.parseLong(ids[1]);
+//		Optional<User> user = userService.findById(uid);
+//		if(user.isPresent()) {
+//			User foundUser = user.get();
 //			foundUser.setIsVoted(true);
 //			userService.update(foundUser);
-			
-//			partyService.updateParty(party);
-			partyService.vote(pid);
-		}
-	  return "redirect:/";
+//			
+//		}
+//		Party party = partyService.findPartyById(pid);
+//		if(party.getId() != null) {
+////			Party foundParty = party.get();
+////			foundUser.setIsVoted(true);
+////			userService.update(foundUser);
+//			
+////			partyService.updateParty(party);
+//			partyService.vote(pid);
+//		}
+//	  return "redirect:/";
+//	}
+	@PostMapping("/vote/{uid}-{pid}")
+	public String vote(@PathVariable Long uid, @PathVariable Long pid) throws InterruptedException {
+	Optional<User> user = userService.findById(uid);
+	if(user.isPresent() && !user.get().isVoted()) {
+		PartyThread partyThread = new PartyThread(pid);
+		UserThread userThread = new UserThread(uid);
+		partyThread.start();
+		userThread.start();
+		
+		// put some comments
+		
+		partyThread.join();
+		userThread.join();
 	}
-
+	
+	System.out.println("time to return vote");
+	return "redirect:/votingresults";
+	}
+	
+	
+	
 //	@GetMapping("/vote/{id}")
 //	public String vote(HttpServletResponse response, @CookieValue(name = "voted", defaultValue = "false") String voted, @PathVariable Long id) {
 //	  if (!Boolean.parseBoolean(voted)) {
@@ -151,6 +171,48 @@ public class PartyController {
 //
 //	  return "redirect:/";
 //	}
+	
+	public static String getUrl(String value) {
+		
+		return value;
+	}
+	
+	private class PartyThread extends Thread {
+		private final Long pid;
+		
+		public PartyThread(Long pid) {
+			this.pid = pid;
+		}
+		
+		@Override
+		public void run() {
+			System.out.println(" party threading is runing with id: " + pid);
+			Party party = partyService.findPartyById(pid);
+			if(party.getId() != null) {
+				partyService.updateParty(party);
+			}
+			
+		}
+	}
+	
+	private class UserThread extends Thread {
+		private final Long uid;
+		
+		public UserThread(Long uid) {
+			this.uid = uid;
+		}
+		
+		@Override
+		public void run() {
+			System.out.println(" user threading is runing with id: " + uid);
+			Optional<User> user = userService.findById(uid);
+			if(user.isPresent()) {
+				User foundUser = user.get();
+				foundUser.setIsVoted(true);
+				userService.update(foundUser);
+			}
+		}
+	}
 	
 	
 }
