@@ -1,59 +1,98 @@
-
-<!-- 
-<div th:replace="shared/header"></div>
-
-
- -->
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="https://www.thymleaf.org/thymeleaf-extras-springsecurity5">
-
+<html xmlns:sec="https://www.thymleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<meta charset="ISO-8859-1">
+<title>VoiceIt App</title>
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+ <link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
 
-    <title>Document</title>
 </head>
 
-<body>
+<body class="multi-color-bg" >
 
-<div class="container">
-    <form th:action="@{/login}" method="POST">
-        <h1 class="text-center">Please Log in</h1>
-        <div th:if="${param.error}" class="alert alert-danger">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}" class="alert alert-success">
-            You have been logged out.
-        </div>
-        <div class="form-group">
-            <label for="">Username</label>
-            <input type="text" class="form-control" name="username" id="">
+	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/register}">Registration and
+					Login</a>
+				
+			</div>
+			<label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
+            </div>
+          </label>
+		</div>
+		
+	</nav>
 
-        </div>
-        <div class="form-group">
-            <label for="">Password</label>
-            <input type="password" class="form-control" name="password" id="pw">
+	<br><br><br><br><br><br><br>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
 
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn">Log in</button>
-            <span class="btn btn-primary" id="showpw">Show passowrd</span>
-        </div>
+				<h1>User Login Page</h1>
+				<form th:action="@{/login}" method="post">
 
-    </form>
+					<!-- error message -->
+					<div th:if="${param.error}">
+						<div class="alert alert-danger">Invalid username or
+							password.</div>
+					</div>
 
-</div>
-<!-- 
-<div th:replace="shared/footer"></div>
+					<!-- logout message -->
+					<div th:if="${param.logout}">
+						<div class="alert alert-info">You have been logged out.</div>
+					</div>
 
- -->
+					<div class="form-group">
+						<label for="username"> Username </label> : <input type="text"
+							class="form-control" id="username" name="username"
+							placeholder="Enter username" required autofocus="autofocus">
+					</div>
 
+					<div class="form-group">
+						<label for="password">Password</label>: <input type="password"
+							id="password" required name="password" class="form-control"
+							placeholder="Enter Password" />
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6 col-sm-offset-3">
+								<input type="submit" name="login-submit" id="login-submit"
+									class="form-control btn btn-primary" value="Log In" />
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="form-group">
+					<span>New user? <a href="/" th:href="@{/register}">Register
+							here</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/login.js">
+		
+		</script>
+		
+		<script type="text/javascript" src="/js/globaltheme.js">
+		
+		</script>
 
 </body>
-
-
 </html>

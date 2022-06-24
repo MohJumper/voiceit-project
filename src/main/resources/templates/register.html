@@ -1,70 +1,97 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="ISO-8859-1">
+<title>VoiceIt App</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+<link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
+
+
 </head>
-<body class="hold-transition register-page">
-  <div class="register-box">
-    <div class="card">
-      <div class="card-body register-card-body">
-        <p class="login-box-msg">Register a new account</p>
 
-        <form action="#" th:action="@{/register}" th:object="${userData}" method="post">
-          <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-          <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-        </div>
-        </form>
-        <div class="input-group mb-3">
-        <input type="text" class="form-control"  th:field="*{firstName}" placeholder="First Name" th:errorclass="is-invalid">
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <span class="fas fa-user"></span>
-          </div>
-        </div>
-      </div>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control"  th:field="*{lastName}" placeholder="Last Name" th:errorclass="is-invalid">
+<body class="multi-color-bg">
 
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Registration and
+					Login </a>
+			</div>
+			<!-- switch to change theme -->
+			<label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
             </div>
-          </div>
-        </div>
-       <div class="input-group mb-3">
-          <input type="email" class="form-control" th:field="*{email}" placeholder="Email" th:errorclass="is-invalid">
+          </label>
+		</div>
+		
+		</div>
+	</nav>
+	
+	<br><br><br><br><br><br><br>
+	<!-- Create HTML registration form -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+	
+				<h1>Registration</h1>
 
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-         <div class="input-group mb-3">
-          <input type="text" class="form-control" th:field="*{username}" placeholder="username" th:errorclass="is-invalid">
+					<form th:action="@{/register}" method="post" th:object="${userData}">
+						<ul th:if="${#fields.hasErrors('*')}">
+					      <!--  this will make error appear as a list/bullet points  
+					        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" th:class="error">Input is incorrect</li>
+					      -->
+					    </ul>
+					    <div class="form-group">
+					    	<label class="control-label" for="firstName"> First Name </label>
+						    <input class="form-control" th:field="*{firstName}">
+						    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"></span>
+					    </div>
+					    <div class="form-group">
+					    	<label class="control-label" for="lastName"> Last Name </label>
+					    	<input class="form-control" th:field="*{lastName}">
+					    	<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"></span>
+					    </div>
+					    <div class="form-group">
+					    	<label class="control-label" for="email"> Email </label>
+					    	<input class="form-control" type="email" th:field="*{email}">
+					    	<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span>
+					    </div>
+					    <div class="form-group">
+					    	<label class="control-label" for="username"> Username </label>
+						    <input class="form-control" th:field="*{username}">
+						    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error"></span>
+					    </div>
+					   <div class="form-group">
+					   	  <label class="control-label" for="password"> Password </label>
+						  <input class="form-control" type="password" th:field="*{password}" >
+						  <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></span>
+					   </div>
 
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" th:field="*{password}" placeholder="Password" th:errorclass="is-invalid">
+					   
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Register</button>
+							<span>Already registered? <a href="/" th:href="@{/login}">Login
+									here</a></span>
+						</div>
+					</form>
 
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        
-        
-    </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
 
+			</div>
+		</div>
+	</div>
 </body>
-
+<script type="text/javascript" src="/js/globaltheme.js"> </script>
 </html>

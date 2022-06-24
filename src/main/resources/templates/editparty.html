@@ -1,43 +1,48 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-     xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-    >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8" />
-<title>Edit Sale</title>
+<meta charset="ISO-8859-1">
+<title>Employee Management System</title>
+  
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+  <link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
 </head>
-<body>
-    <div align="center">
-        <h1>Edit Sale</h1>
-        <br />
+
+<body class="multi-color-bg">
+    <div class="container">
+        <h2>Update Party Name</h2>
+  
         <form action="#" th:action="@{/edit/{id}(id=${party.id})}" th:object="${party}"
-            method="post">
-
-            <table border="0" cellpadding="10">
-              	 <!--  you can make this id appear but just ready only 
-              	 <tr>
-                    <td>ID:</td>
-                    <td><input type="text" th:field="*{id}" readonly="readonly" /></td>
-                </tr>
+            method="POST">
+            
+            <input type="text" th:field="*{Name}" class="form-control mb-4 col-4">
+             
+                <button type="submit" class="btn btn-info col-2"> Update Party</button>
                 
-                
-              	  -->
-
-                <tr>
-                    <td>Party Name:</td>
-                    <td><input type="text" th:field="*{name}" /></td>
-                </tr>
-               
-                <tr>
-                    <td colspan="2"><button type="submit">Update</button> </td>
-
-                </tr>
-
-            </table>  
         </form>
-         <form action="#" th:action="@{/}">
-            <button type="submit" class="btn btn-default">Back</button>
-            </form>
+          
+        <hr> 
+        <div class="backButton"> 
+	         <form action="#" th:action="@{/}">
+	          	<button type="submit" class="btn btn-default">Back</button>
+	          </form>
+        
+        </div>
+         
+           <!-- switch to change theme -->
+	        <div class="switchButton">
+			<label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
+            </div>
+          </label>
+		</div>
+        
     </div>
-</body> 
+</body>
+<script type="text/javascript" src="/js/globaltheme.js"> </script>
+</html>

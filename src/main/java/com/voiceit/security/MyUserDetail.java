@@ -37,6 +37,14 @@ public class MyUserDetail implements UserDetails {
         // TODO Auto-generated method stub
         return user.getPassword();
     }
+    
+    public boolean getIsVoted( ) {
+    	return user.isVoted();
+    }
+    
+    public Long getId() {
+    	return user.getId();
+    }
 
     @Override
     public String getUsername() {

@@ -36,24 +36,44 @@ public class RegisterationController {
 	@GetMapping("/register")
 	public String getRegisterPage(ModelMap model) {
 		User user = new User();
-		model.put("user", user);
+//		UserData user = new UserData();
+		model.put("userData", user);
 		return "register";
 	}
+//	 @GetMapping("/register")
+//	    public String getEmpForm(@ModelAttribute("userData") User userData){
+//	        return "register";
+//	    }
 	
 	@PostMapping("/register")
-	public String postRegister(final @Valid UserData userData, final BindingResult bindingResult, final Model model) {
+	public String postRegister(final @Valid @ModelAttribute("userData") User userData, BindingResult bindingResult, final ModelMap model) {
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("register", userData);
+			model.addAttribute("userData", userData);
 			return "register";
 		}
 	    
 	    try {
+	    	
 			userService.save(userData);
-		} catch (EmailAlreadyExistException e) {
+		} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
 			bindingResult.rejectValue("email", 
 					 				  "userData.email", 
-					 "This email is alraedy taken");
-			model.addAttribute("register", userData);
+					 "This email is alraedy taken"
+					 				  );
+			bindingResult.rejectValue("username", 
+	 				  "userData.username", 
+	 "This username is alraedy taken");
+			bindingResult.rejectValue("firstName", 
+	 				  "userData.firstName", 
+	 "This firstName can not bee empty");
+			bindingResult.rejectValue("lastName", 
+	 				  "userData.lastName", 
+	 "This lastName can not bee empty");
+			bindingResult.rejectValue("password", 
+	 				  "userData.password", 
+	 "This password can not bee empty");
+			
+			model.addAttribute("userData", userData);
 //			e.printStackTrace();
 			return "register";
 		}
@@ -61,61 +81,6 @@ public class RegisterationController {
 	}
 	
 	// --------------------------------------------------------------- 
-	
-//	@PostMapping("/register")
-//	public String postRegister(User user) {
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//		User userExists = userService.findUserByUserName(user.getUsername());
-//
-//	    String encodedPassword = passwordEncoder.encode(user.getPassword());
-//	    user.setPassword(encodedPassword);
-//	    
-//	    try {
-//			userService.save(user);
-//		} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "redirect:/";
-//	}
-	// --------------------------------------------------------------------- 
-//	@PostMapping("/register")
-//	public ModelAndView postRegister(@Validated User user, BindingResult bindingResult) {
-//		
-//        ModelAndView modelAndView = new ModelAndView();
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//		User userExists = userService.findUserByUserName(user.getUsername());
-//		if(userExists != null) {
-//			bindingResult.rejectValue("userName", 
-//									 "error.user", 
-//									 "This username is alraedy taken");
-//		}
-//		if (bindingResult.hasErrors()) {
-//	            modelAndView.setViewName("register");
-//			} else {
-//				 try {
-//						userService.save(user);
-//					} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
-//						e.printStackTrace();
-//					}
-//				 String encodedPassword = passwordEncoder.encode(user.getPassword());
-//				 user.setPassword(encodedPassword);
-//				 modelAndView.addObject("successMessage", "User has been registered successfully");
-//				 modelAndView.addObject("user", new User());
-//				 modelAndView.setViewName("register");
-//			}
-//		
-//	   
-//	    
-////	    try {
-////			userService.save(user);
-////		} catch (EmailAlreadyExistException | UsernameAlreadyExisitException e) {
-////			// TODO Auto-generated catch block
-////			e.printStackTrace();
-////		}
-////		return "redirect:/";
-//		return modelAndView;
-//	}
 
 	
 	

@@ -1,33 +1,51 @@
 <!DOCTYPE html>
-<html
-    xmlns:th="http://www.thymeleaf.org"
-     xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-    >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8" />
+<meta charset="ISO-8859-1">
 <title>New Party</title>
-</head>
-<body>
-    <div sec:authorize="hasAuthority('admin')" align="center">
-        <h1>Enter New Party</h1>
-        <br />
-          <form action="#" th:action="@{/saveparty}" th:object="${nParty}"
-            method="post">
 
-            <table border="0" cellpadding="10" class="table table-bordered table-striped">
-               
-                <tr>
-                    <td>Party Name:</td>
-                    <td><input type="text" th:field="*{name}" /></td>
-                </tr>                          
-                <tr>
-                    <td colspan="2"><button type="submit">Save</button> </td>
-                </tr>
-            </table>
-        </form>
-        <form action="#" th:action="@{/}">
-            <button type="submit" class="btn btn-default">Back</button>
-            </form>
-     
-    </div>
-</body> 
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+ <link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
+</head>
+
+
+<body class="multi-color-bg">
+	<div class="container">
+		<h1>Enter New Party</h1>
+
+		<form action="#" th:action="@{/saveparty}" th:object="${nParty}"
+			method="POST">
+			
+			
+			<input type="text" th:field="*{Name}" class="form-control mb-4 col-4">
+				<button type="submit" class="btn btn-info col-2"> Save Party</button>
+		</form>
+		
+		<hr>
+		<div class="backButton">
+			<form action="#" th:action="@{/}">
+	          	<button type="submit" class="btn btn-default">Back</button>
+	          	
+	        </form>
+	    </div> 
+	        <!-- switch to change theme -->
+	        <div class="switchButton">
+			<label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
+            </div>
+          </label>
+		</div>
+		
+		
+		
+	</div>
+		
+		
+</body>
+<script type="text/javascript" src="/js/globaltheme.js"> </script>
+</html>

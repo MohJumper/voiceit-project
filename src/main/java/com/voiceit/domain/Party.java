@@ -36,11 +36,6 @@ public class Party {
 		this.voteCount = voteCount;
 	}
 
-	@Override
-	public String toString() {
-		return "Party [id=" + id + ", name=" + name + "]";
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +50,11 @@ public class Party {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Party [id=" + id + ", name=" + name + ", voteCount=" + voteCount + "]";
 	}
 	
 	

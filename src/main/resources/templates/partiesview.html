@@ -6,82 +6,100 @@
 <meta charset="UTF-8">
 <title>Show all parties</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-<!-- link for the style of the table and buttons 
-
-https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add-and-delete-row-feature
-
-<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New Party</button>
-
-	---------------------
-	vote here 
-	<a th:href="@{/vote/{id}(id=${party.id})}"
-	        			class="edit vote" title="vote" data-toggle="tooltip">Vote Here</a>
-
-	<input id="voted" type="submit" value="Vote Here" />
-	
-	 <button id="voted" th:onclick="checkIfClicked()" >Vote Here</button>
- -->
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+<link th:href="@{/css/globaltheme.css}" rel="stylesheet" />
 
 <script type="text/javascript" src="partiesview.js"> </script>
 </head>
 
+ <!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div id="logout" class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+						
+				</button>
+				<a id="log" class="navbar-brand" href="#" th:href="@{/logout}"> Logout</a>
+			</div>
+			
+			<div id="page" class="col-sm-8"><h2><b>VOTING PAGE</b></h2></div>
 
-<div sec:authorize="isAuthenticated()" class="text-center">
-    <h1>
-    
-    <!-- 
-    removed to test different approach 
-    
-    Welcome <b><span  sec:authentication="name"></span>
-    &nbsp;
-    <span sec:authentication="principal.authorities"></span>
-     
-     -->
-    Welcome <b>[[${#request.userPrincipal.principal.username}]]</b>
-    
-    <b><span  sec:authentication="name"></span>
-    &nbsp;
-    <span sec:authentication="principal.authorities"></span>
-    </h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="logout">
-        </form>
-</div>
-<!-- 
-still working on the disable vote and send message when user voted 
-th:attr="onload=\"runLoad('${party.id}')\""
- -->
-<body >
-	<div class="col-sm-8"><h2><b>Voting Page</b></h2></div>
-		<div sec:authorize="hasAuthority('admin')" class="col-sm-4">
-	    
-	     <a sec:authorize="hasAuthority('admin')" href="/newparty" class="btn btn-info add-new">Add New Party</a>
-    </div>
+		</div>
+		
+	</nav>
+	<!-- end of nav bar --------------------------------------------------- -->
+	<br><br><br><br><br><br><br>
 	
-	<table border="1" cellpadding="10" class="table table-bordered table-striped" >
+	<div id="loggedUser" style="text-transform:uppercase;">
+		<h1>
+	     WELCOME <b>[[${#request.userPrincipal.principal.username}]]</b> 
+	   	</h1>
+	   	<h3> You are a <b>[[${#request.userPrincipal.principal.getAuthorities}]]</b></h3>
+	
+	</div>
+	<label class="switch">
+            <i class="fas fa-adjust"></i>
+           	 <div>
+              <input id="switch" type="checkbox" />
+              <span class="slider round"></span>
+            </div>
+          </label>
+			
+	
+<body class="multi-color-bg">
+	
+		<div id="addNew" sec:authorize="hasAuthority('admin')" class="col-sm-4" th:block th:switch="${role.name}">
+	    
+	     <a sec:authorize="hasAuthority('admin')" href="/newparty" class="btn btn-info add-new" >Add New Party</a>
+	     <a id="result" class="btn btn-info add-new" href="#" th:href="@{/votingresults}"> Go To Result</a>
+    </div>
+    
+    <br><br>
+	
+	<table id="multi-color-bg" class="table table-bordered table-striped" >
 		<thead>
 			<tr>
-				<th>Party Symbols</th>
+				<th>Party ID</th>
 				<th>Party Name</th>
-				<th>Vote Here</th>
-				<th id="action"  >Action</th>
+				<th th:if="${#request.userPrincipal.principal.isVoted == false}" >Vote Here</th>
+				<th id="action" >Action</th>
 			</tr>
 		</thead>
 		
 		<tbody>
 			<tr th:each=" party : ${parties}">
-				<td th:text="${party.id}">Party Symbols</td>
+				<td th:text="${party.id}">Party ID</td>
 				<td th:text="${party.name}">Party Name</td>
-				<td>
+				<td th:if="${#request.userPrincipal.principal.isVoted == false}" >
 					
-	        		<form th:action="@{/vote/{id}(id=${party.id})}" method="get">
+					<!-- 
+					th:if="${#request.userPrincipal.principal.isVoted == false}"
+					th:if="${#request.userPrincipal.principal.isVoted == false}"
+						<form th:action="@{/vote/{uid}(uid=${#request.userPrincipal.principal.id}-${party.id})}" method="get">
+						<form th:action="@{/vote/{uid}(uid=12345)}" method="get">
+						<form th:action="@{/vote/{uid}(uid=${#request.userPrincipal.principal.id}, pid=${party.id})}" method="get">
 		   					 
-		   					 <button id="voted" th:disabled="${voted}"> Vote Here</button>
+		   					 <button id="voted" > Vote Here</button>
 								
 		   					 
 					</form>
+					 -->
+					<form th:action="@{/vote/{uid}-{pid}(uid=${#request.userPrincipal.principal.id}, pid=${party.id})}" method="post">
+		   					 
+		   					 <button id="voted" > Vote Here</button>
+								
+		   					 
+					</form>	        		
 				</td>
 				<td class="actionButtons">
 					
@@ -98,25 +116,13 @@ th:attr="onload=\"runLoad('${party.id}')\""
                     class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     
 				</td>
-				<!-- 
-				add to each a tage
-				th:href="@{/edit/{id}(id=${part.id})}"
-				
-				<a th:href="@{/delete/{id}(id=${party.id})}"
-                    
-                    class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-				
-				..................................
-				 <a class="btn btn-default" >Edit</a>
-                     &nbsp;&nbsp;&nbsp;
-        			<a class="btn btn-default">Delete</a>
-				
-				 -->
 				
 			</tr>
 		</tbody>
 		
 	</table >
-	
+	<script type="text/javascript" src="/js/globaltheme.js"> </script>
 </body>
+
+
 </html>

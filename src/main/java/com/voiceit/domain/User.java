@@ -1,5 +1,6 @@
 package com.voiceit.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,24 +34,32 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-
-    @Column(name = "username", unique = true, nullable = false)
+    @NotBlank
+    @Column(name = "username", unique = true)
     private String username;
-    @Column(name = "password", nullable = false)
+    
+    @NotBlank
+    @Column(name = "password")
     private String password;
-    @Column(name = "email", unique = true, nullable = false)
+    
+    @NotBlank
+    @Column(name = "email", unique = true)
     private String email;
     
-    @Column(name = "first_name" , nullable = false)
+    @Size(min= 2, max= 30, message = "first name must be at least 2 letters and max of 30")
+    @NotBlank
+    @Column(name = "first_name")
     private String firstName;
     
-    @Column(name = "last_name" , nullable = false)
+    @Size(min= 2, max= 30, message = "Last name must be at least 2 letters and max of 30")
+    @NotBlank
+    @Column(name = "last_name")
     private String lastName;
     
     
-//    @Column(name = "created_date", nullable = false, updatable = false)
-//    @CreationTimestamp
-//    private Date createdDate;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDate createdDate;
     
     @Column(name = "voted", columnDefinition="tinyint(0) default 0")
     private boolean isVoted;
@@ -85,7 +97,7 @@ public class User {
 		return isVoted;
 	}
 
-	public void setVoted(boolean isVoted) {
+	public void setIsVoted(boolean isVoted) {
 		this.isVoted = isVoted;
 	}
 
@@ -121,13 +133,13 @@ public class User {
         this.email = email;
     }
 
-//    public Date getCreatedDate() {
-//        return createdDate;
-//    }
-//
-//    public void setCreatedDate(Date createdDate) {
-//        this.createdDate = createdDate;
-//    }
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
+    }
 
     public Set<Role> getRoles() {
         return roles;

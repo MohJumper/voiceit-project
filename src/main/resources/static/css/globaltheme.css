@@ -1,0 +1,109 @@
+html,body{
+        height: 100%;
+      }
+.navbar {
+	background-color: black;
+}
+
+#logout {
+	position: absolute;
+    right: 0px;
+}
+
+#addNew {
+	position: relative;
+    left: 0px;
+}
+
+#page{
+	color: white;
+	position:absolute; 
+	left:-5px; 
+
+}
+
+#loggedUser{
+	position: relative;
+	color: black;
+	 left: 15px;
+}
+
+#result{
+	 text-align:center;
+
+}
+body {
+  width: 100%;
+  height: 100%;
+  background-image: 
+      linear-gradient(to right, rgb(132, 208, 191), rgb(153, 132, 208));
+  background-repeat: no-repeat,
+      no-repeat,
+      no-repeat;
+  background-position: bottom right,
+      left,
+      right;
+}
+
+body.dark {
+  width: 100%;
+  height: 100%;
+  background-image: 
+      linear-gradient(to right, rgb(250, 250, 250), rgb(0, 0, 0));
+  background-repeat: no-repeat,
+      no-repeat,
+      no-repeat;
+  background-position: bottom right,
+      left,
+      right;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.switch {
+  width: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.switch div {
+  position: relative;
+  display: block;
+  background: #eee;
+  width: 30px;
+  border-radius: 50px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.fa-adjust {
+  transform: rotate(180deg);
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  background-color: #999;
+  transition: 0.4s;
+  border-radius: 34px;
+  height: 12px;
+  width: 12px;
+  display: inline-block;
+  position: relative;
+}
+
+input:checked + .slider {
+  transform: translateX(8px);
+}
+
+.backButton, .switchButton {
+	display:inline-block;
+}
