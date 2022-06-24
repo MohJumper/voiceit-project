@@ -76,31 +76,36 @@ public class PartyController {
 		return "redirect:/";
 	}
 
+	/*
+	 * Vote method that do two things; turn isVoted to true when clicked 
+	 * Increment vote by one. Multi-threading is used for better performance 
+	 */
 	@PostMapping("/vote/{uid}-{pid}")
 	public String vote(@PathVariable Long uid, @PathVariable Long pid) throws InterruptedException {
 	Optional<User> user = userService.findById(uid);
 	if(user.isPresent() && !user.get().isVoted()) {
 		PartyThread partyThread = new PartyThread(pid);
+		Thread myPartyThread = new Thread(partyThread);
 		UserThread userThread = new UserThread(uid);
-		partyThread.start();
-		userThread.start();
+		Thread myUserThread = new Thread(userThread);
+		myPartyThread.start();
+		myUserThread.start();
 		
-		// put some comments
+		// if you remove the .join() you will not see the result reflected after the click
 		
-		partyThread.join();
-		userThread.join();
+		myPartyThread.join();
+		myUserThread.join();
 	}
 	
 	System.out.println("time to return vote");
 	return "redirect:/votingresults";
 	}
 	
-	public static String getUrl(String value) {
-		
-		return value;
-	}
-	
-	private class PartyThread extends Thread {
+	// -------------------------------------- Helper multi-threading classes -------------------------------- 
+		/*
+		 * might consider moving out a separate package.
+		 */
+	private class PartyThread implements Runnable {
 		private final Long pid;
 		
 		public PartyThread(Long pid) {
@@ -118,7 +123,7 @@ public class PartyController {
 		}
 	}
 	
-	private class UserThread extends Thread {
+	private class UserThread implements Runnable {
 		private final Long uid;
 		
 		public UserThread(Long uid) {
