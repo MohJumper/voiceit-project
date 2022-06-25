@@ -50,13 +50,13 @@ public class RegisterationController {
 	 "This username is alraedy taken");
 			bindingResult.rejectValue("firstName", 
 	 				  "userData.firstName", 
-	 "This firstName can not bee empty");
+	 "This firstName can not be empty");
 			bindingResult.rejectValue("lastName", 
 	 				  "userData.lastName", 
-	 "This lastName can not bee empty");
+	 "This lastName can not be empty");
 			bindingResult.rejectValue("password", 
 	 				  "userData.password", 
-	 "This password can not bee empty");
+	 "This password can not be empty");
 			
 			model.addAttribute("userData", userData);
 //			e.printStackTrace();

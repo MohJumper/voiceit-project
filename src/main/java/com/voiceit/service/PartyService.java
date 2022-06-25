@@ -42,7 +42,7 @@ public class PartyService {
 			nParty.setId(party.getId());
 			nParty.setName(party.getName());
 			
-			nParty.setVoteCount(nParty.getVoteCount() +1);
+//			nParty.setVoteCount(nParty.getVoteCount() +1);
 			nParty = partyReposiorty.save(nParty);
 			return nParty;
 			
@@ -56,6 +56,24 @@ public class PartyService {
 	public void deleteById(Long id) {
 		partyReposiorty.deleteById(id);
 		
-	}	
+	}
+	
+	public Party vote(Party party) {
+		Optional<Party> currPartyOpt = partyReposiorty.findById(party.getId());
+
+		if(currPartyOpt.isPresent()) {
+			Party nParty = currPartyOpt.get();
+			nParty.setId(party.getId());
+			nParty.setName(party.getName());
+			
+			nParty.setVoteCount(nParty.getVoteCount() +1);
+			nParty = partyReposiorty.save(nParty);
+			return nParty;
+			
+		} else {
+			party = partyReposiorty.save(party);
+			 return party;
+		}
+	}
 
 }

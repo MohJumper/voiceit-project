@@ -117,7 +117,8 @@ public class PartyController {
 			System.out.println(" party threading is runing with id: " + pid);
 			Party party = partyService.findPartyById(pid);
 			if(party.getId() != null) {
-				partyService.updateParty(party);
+				partyService.vote(party);
+				
 			}
 			
 		}
