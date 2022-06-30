@@ -11,6 +11,6 @@ public class LoginController {
     
     @GetMapping("voiceit-app.herokuapp.com/login")
     public String login(){
-        return "/login";
+        return "login";
     }
 }
