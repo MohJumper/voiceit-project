@@ -26,7 +26,8 @@ Validated user inputs before submitting to the database.
 ![voiceit-voiting](https://user-images.githubusercontent.com/50962389/172766968-13bb7418-79d8-40e6-9aaf-b7b26b57c369.png)
 
 
-Show the voting results
+# Third-party API to show the results in chart format. 
+
 ![voiceit-results](https://user-images.githubusercontent.com/50962389/172766967-37e79bea-feef-4b38-9da8-3c2e1657c475.png)
 
 
