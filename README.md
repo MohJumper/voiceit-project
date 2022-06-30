@@ -38,3 +38,4 @@ Validated user inputs before submitting to the database.
 
 - Add images for each candidate.
 - Show the results in a pie chart format.
+
