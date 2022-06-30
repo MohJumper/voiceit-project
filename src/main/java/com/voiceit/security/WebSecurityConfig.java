@@ -48,10 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
       http.authorizeRequests()
       .antMatchers(
-//          "/register",
+          "/register",
           "https://voiceit-app.herokuapp.com/login",
           "voiceit-app.herokuapp.com/login",
-          "/login",
+//          "/login",
           "/vote/**",
           "/js/**",
           "/css/**",
@@ -78,6 +78,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .exceptionHandling().accessDeniedPage("/deniedaccess")
       ;
     }
+    
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//      http.authorizeRequests()
+//      .antMatchers(
+//          "/register",
+//          "https://voiceit-app.herokuapp.com/login",
+//          "voiceit-app.herokuapp.com/login",
+//          "/login",
+//          "/vote/**",
+//          "/js/**",
+//          "/css/**",
+//          "/img/**",
+//          "/webjars/**")
+//      
+//      .permitAll()
+//      .and()
+//      .authorizeRequests()
+//    // ----------- end 
+//      .antMatchers("/delete/**").hasAuthority("admin")
+//      .antMatchers("/edit/**").hasAuthority("admin")
+//      .antMatchers("/newparty/**").hasAuthority("admin")
+//      .anyRequest().authenticated()
+//      
+//      .and()
+//      .formLogin()
+//      .loginPage("/login")
+//      .permitAll()
+//      .and().csrf().disable()
+//      .logout().permitAll()
+//      .and()
+//      // handle error when authorization is denied
+//      .exceptionHandling().accessDeniedPage("/deniedaccess")
+//      ;
+//    }
 
    
 }
