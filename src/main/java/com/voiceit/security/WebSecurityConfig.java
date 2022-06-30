@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers(
           "/register",
           "https://voiceit-app.herokuapp.com/login",
+          "voiceit-app.herokuapp.com/login",
           "/login",
           "/vote/**",
           "/js/**",
