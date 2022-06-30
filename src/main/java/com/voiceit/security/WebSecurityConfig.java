@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       http.authorizeRequests()
       .antMatchers(
           "/register",
+          "https://voiceit-app.herokuapp.com/login",
           "/login",
           "/vote/**",
           "/js/**",
