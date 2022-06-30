@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping(value = "/login")
+@RequestMapping(value = "https://voiceit-app.herokuapp.com/login")
 public class LoginController {
     
     @GetMapping
