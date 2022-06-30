@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //@RequestMapping(value = "voiceit-app.herokuapp.com/login")
 public class LoginController {
     
-    @GetMapping("voiceit-app.herokuapp.com/login")
+    @GetMapping("/login")
     public String login(){
         return "login";
     }
