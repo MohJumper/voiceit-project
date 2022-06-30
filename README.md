@@ -8,8 +8,13 @@ Simulated a real-world experience by taking an agile approach to workflow and de
 
 ![Screenshot from 2022-06-09 01-16-47](https://user-images.githubusercontent.com/50962389/172769995-07842436-bd04-4716-8a2a-a3321c5a3f39.png)
 
-## Demo 
-Video demo is coming ... 
+## Live & Demo 
+
+Find the app here >> https://voiceit-app.herokuapp.com/login
+
+Video demo:
+
+7 minutes demo >> https://www.youtube.com/watch?v=psTaqEFGw8o&t=1s
 
 
 Validated user inputs before submitting to the database.
